@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	
+		<title>Cookie Collector 3DS</title>
+		<meta charset = "utf-8"></meta>
+		
+		<style>
+		
+		body {
+		
+		height: 100%;
+		width: 100%;
+		padding: 0;
+		margin: 0;
+		background-color: #48bbff;
+		font-faimly: 'Segoe UI', Arial, Helvetica, sans-serif;
+		
+		}
+
+		main {
+			border-style: solid;
+			border-color: 666;
+			border-width: 0.5px;
+			border-radius: 15px;
+			background-color: #ddd7d7;
+			max-width: 60%;
+			margin-left: 20%;
+			margin-top: 20px;
+			padding-left: 5px;
+			color: #404040;
+			font-weight: 0.8px;
+			font-size: 0.9em;
+		}
+		
+		.title {
+			text-align: center;
+			color: #404040;
+		}
+		
+		.title_sub {
+			text-align: center;
+			color: #404040;
+		}
+		
+		</style>
+		
+	</head>
+
+	<body>
+		
+		
+			<h1 class = "title">Cookie Collector 3DS</h1>
+			<h3 class = "title_sub">Kaisogen</h3>
+		
+			<main>
+				<p class = "text">Cookie Collector 3DS was made in 2015/2016 as a test of 3DS Homebrew Libraries. You can download the game <a href = "https://github.com/Kaisogen/CookieCollector-3DS-/releases">here</a>.</p>
+			</main>
+			
+			<main>
+				<h1 class = "title">Alternatives</h1>
+				<p>This game is extremely old, and is probably not fun. You can use the source as a way of learning a bit of C with the 3DS, but I would not play it. Alternatives to this game includes:</p>
+				<pre>    Creckeryop's <a href = "https://github.com/Creckeryop/3dsCookieClicker/">Cookie Clicker</a></pre>
+				
+				<pre>    TheMachinumps' <a href ="https://github.com/TheMachinumps/Cookie_Clicker_3DS/">Cookie Clicker 3DS</a></pre>
+			</main>
+			
+			<main>
+				<h1 class = "title">Usage</h1>
+				<p>This may not compile, as the code is very old. Grab a release file from the releases page, or compile the code yourself. Place the 3DSX and SDMH in /root/3DS/CookieCollector/</p>
+				<p>Your files should look like this:</p>
+				<pre>/root <br>    /3DS<br>        /CookieCollector<br>            CookieCollector.3DSX<br>            CookieCollector.SDMH</pre>
+				<p>Run the CookieCollector.3DSX file in the Homebrew Launcher, from an entrypoint of your choice. Have fun.</p>
+			</main>
+			
+			<main>
+				<h1 class = "title">Compilation</h1>
+				<p>Clone the repo, and unzip it somewhere. Make a new directory labelled 'source', and place 'main.c' in there. CD to the root of the repo, and run 'make'. Once it has finished, it will produce an ELF and a 3DSX file of the same name. Grab the SDMH from the releases page, and then use that instead of the generated one.</p>
+				<p>This assumes you have installed the necessary libraries and DevkitPro.</p>
+			</main>
+		
+	
+	</body>
+
+</html>
