@@ -1,15 +1,18 @@
+// This game was commented and made for those who don't understand C or 3DS Homebrew
 #include <string.h>
 #include <3ds.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 int cookies = 0;
-int cookieM = 1;
+int cookieM = 1; //Multiplier
 int check = 0;
-int cookieMCost = 100;
-int clickCost = 10;
-int grandmaCost = 100;
-int bakeryCost = 1000;
+int cookieMCost = 100; //Multiplier Cost
+int clickCost = 10; //Automatic Cost
+int grandmaCost = 100; //Automatic Cost
+int bakeryCost = 1000; //Automatic Cost
+
+// Keep track of values
 int clickers = 0;
 int grandmas = 0;
 int bakeries = 0;
@@ -17,16 +20,16 @@ int bakeries = 0;
 int main()
 {
 	gfxInitDefault();
-	
+	//Select Screens
 	PrintConsole topScreen, bottomScreen;
 	
 	consoleInit(GFX_TOP, &topScreen);
 	consoleInit(GFX_BOTTOM, &bottomScreen);
-	
+	//Choose which screen to print to (top)
 	consoleSelect(&topScreen);
 
-	;printf("Hello, this is a cookie tapper app, by @Kaisogen!\n\n");
-	printf("Get more cookies by pressing A!\nFor a longer tutorial, press B!\n\n");
+	;printf("Hello, this is a cookie tapper app, by @Kaisogen!\n\n"); //For some reason the code won't compile without this semicolon at the beginning.
+	printf("Get more cookies by pressing A!\nFor a longer tutorial, press B!\n\n"); 
 	printf("If you want to see bugfixes for the current version, press X!\n\n");
 	printf("This is version 1.2!\n\n\n");
 	
@@ -44,12 +47,12 @@ int main()
 			break; //Break in order to return to hbmenu
 		
 		//Tutorial!
-		if(kDown & KEY_B){
+		if(kDown & KEY_B){	//kDown is true when a key is held down. 
 			printf("\n\n\n Hey there! Welcome to Cookie Collector! Thanks for opening the advanced explanation!");
 			printf("\nIf you press A, you get your cookie production added to your total cookies!");
 			printf("\nIf you press Up on the D-Pad, you can buy a clicker for a certain amount of cookies. This adds 0.1 cookies to your total cookies produced per click.");
 			printf("\nPress Right on the D-Pad for Bakeries. They add 100!");
-			printf("\nPress Left to hire a grandma. They give you one extra cookie (;");
+			printf("\nPress Left to hire a grandma. They give you one extra cookie per second!");
 			printf("Press the Home button if you ever want to leave!");
 		}
 		
@@ -106,6 +109,8 @@ int main()
 		
 		consoleSelect(&bottomScreen);
 		consoleClear();
+		
+		//%d is a replacement for an integer
 		printf("You have %d cookies!\n", cookies);
 		printf("You gain %d cookies per round!\n", cookieM);
 		printf("You have %d clickers so far!\n", clickers);
@@ -120,5 +125,5 @@ int main()
 		
 	}
 	gfxExit();
-	return 0;
+	return 0; //Program exited properly
 }
