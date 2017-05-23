@@ -121,9 +121,9 @@ int main()
 		//This should be firing every free times then.
 		if (frames % 3 == 0) {
 			consoleClear();
-			cookies = cookies + (clickers * 1);
-			cookies = cookies + (grandmas * 3);
-			cookies = cookies + (factories * 10);
+			cookies = cookies + (clickers * 0.05);
+			cookies = cookies + (grandmas * 0.15);
+			cookies = cookies + (factories * 5);
 		}
 		
 		//Lazy reset frames. I haven't tested this code yet, so it might not work. I gave it three seconds before resetting.
