@@ -28,9 +28,14 @@ include $(DEVKITARM)/3ds_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	source
+SOURCES		:=	source source/spritesheets
 DATA		:=	data
 INCLUDES	:=	include
+ICON  :=  icon.48.png
+
+APP_TITLE		:= 3DS Cookie Collector
+APP_DESCRIPTION	:= Kaisogen 3DS Cookie Collector (Spritetools Branch)
+APP_AUTHOR		:= Kaisogen
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -48,13 +53,14 @@ CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++11
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=3dsx.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
 
-LIBS	:= -lctru -lm
+LIBS	:=  -lspritetools -lsfil -lpng -ljpeg -lz -lsf2d -lcitro3d -lctru -lm
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= $(CTRULIB)
+LIBDIRS	:= $(CTRULIB) $(PORTLIBS)
+SPRITETOOLSLIB  := $(CTRULIB)/lib/libspritetools.a
 
 
 #---------------------------------------------------------------------------------
@@ -122,15 +128,44 @@ endif
 #---------------------------------------------------------------------------------
 all: $(BUILD)
 
-$(BUILD):
+$(BUILD): $(SPRITETOOLSLIB)
 	@[ -d $@ ] || mkdir -p $@
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
+
+$(SPRITETOOLSLIB):
+	@echo "Install SpriteTools first!"
+	@echo "1) Download the latest zip from http://github.com/bthedestroyer/spritetools/releases"
+	@echo "2) Extract the zip file into an empty folder."
+	@echo "3) Run the following command in the folder you extracted the zip to:"
+	@echo "    make install"
+	@echo "4) Then, try building this again."
+	@echo ""
 
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
 	@rm -fr $(BUILD) $(TARGET).3dsx $(OUTPUT).smdh $(TARGET).elf
-
+#---------------------------------------------------------------------------------
+$(TARGET)-strip.elf: $(BUILD)
+	@$(STRIP) --strip-all $(TARGET).elf -o $(TARGET)-strip.elf
+#---------------------------------------------------------------------------------
+cci: $(TARGET)-strip.elf
+	@makerom -f cci -rsf resources/$(TARGET).rsf -target d -exefslogo -elf $(TARGET)-strip.elf -o $(TARGET).3ds
+	@echo "built ... sf2d_sample.3ds"
+#---------------------------------------------------------------------------------
+cia: $(TARGET)-strip.elf
+	@makerom -f cia -o $(TARGET).cia -elf $(TARGET)-strip.elf -rsf resources/$(TARGET).rsf -icon resources/icon.icn -banner resources/banner.bnr -exefslogo -target t
+	@echo "built ... sf2d_sample.cia"
+#---------------------------------------------------------------------------------
+send: $(BUILD)
+	@3dslink $(TARGET).3dsx
+#---------------------------------------------------------------------------------
+run: $(BUILD)
+	@citra $(TARGET).3dsx
+#---------------------------------------------------------------------------------
+copy_cia: $(TARGET).cia
+	@cp $(TARGET).cia /mnt/GATEWAYNAND
+	sync
 
 #---------------------------------------------------------------------------------
 else
@@ -152,6 +187,18 @@ $(OUTPUT).elf	:	$(OFILES)
 # you need a rule like this for each extension you use as binary data
 #---------------------------------------------------------------------------------
 %.bin.o	:	%.bin
+#---------------------------------------------------------------------------------
+	@echo $(notdir $<)
+	@$(bin2o)
+
+#---------------------------------------------------------------------------------
+%.jpeg.o:	%.jpeg
+#---------------------------------------------------------------------------------
+	@echo $(notdir $<)
+	@$(bin2o)
+
+#---------------------------------------------------------------------------------
+%.png.o	:	%.png
 #---------------------------------------------------------------------------------
 	@echo $(notdir $<)
 	@$(bin2o)
