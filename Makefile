@@ -32,6 +32,9 @@ SOURCES		:=	source
 DATA		:=	data
 INCLUDES	:=	include
 
+APP_TITLE	:=	Cookie Collector 3DS
+APP_DESCRIPTION	:=	Collect cookies, and get a highscore that will make your friends jealous!
+APP_AUTHOR	:=	Kaisogen
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
