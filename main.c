@@ -6,8 +6,6 @@
 
 long long int cookies = 0;
 int cookieM = 1; //Multiplier
-int check = 0;
-int cookieMCost = 100; //Multiplier Cost
 int clickCost = 10; //Automatic Cost
 int grandmaCost = 100; //Automatic Cost
 int bakeryCost = 1000; //Automatic Cost
@@ -47,7 +45,7 @@ int main()
 		
 		// Title Screen
 		printf("\x1b[1;14HCookie Collector 3DS");
-		printf("\x1b[5;2HYou have: %lld cookies", cookies);
+		printf("\x1b[5;15HYou have: %lld cookies", cookies);
 		printf("\x1b[6;0H__________________________________________________");
 		printf("\x1b[8;2HIt costs %d cookies to build a clicker", clickCost);
 		printf("\x1b[9;2HIt costs %d cookies to hire a grandma", grandmaCost);
@@ -59,13 +57,12 @@ int main()
 		//Add Cookies	
 		if (kDown & KEY_A){
 			cookies = cookies + cookieM;
-			check = 1;
 		}
 			
 		//Buy clicker	
 		if (kDown & KEY_UP){
 			
-			if(cookies > clickCost){
+			if(cookies >= clickCost){
 				cookies-=clickCost;
 				clickCost = clickCost * 1.2;
 				clickers++;
@@ -98,6 +95,8 @@ int main()
 			cookies = cookies + clickers;
 			
 			cookies = cookies + grandmas * 2;
+			
+			cookies = cookies + bakeries * 5;
 			
 			frames = 0;
 		}
