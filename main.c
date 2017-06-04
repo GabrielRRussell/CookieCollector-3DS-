@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int cookies = 0;
+long long int cookies = 0;
 int cookieM = 1; //Multiplier
 int check = 0;
 int cookieMCost = 100; //Multiplier Cost
@@ -47,7 +47,7 @@ int main()
 		
 		// Title Screen
 		printf("\x1b[1;14HCookie Collector 3DS");
-		printf("\x1b[5;2HYou have: %d cookies", cookies);
+		printf("\x1b[5;2HYou have: %lld cookies", cookies);
 		printf("\x1b[6;0H__________________________________________________");
 		printf("\x1b[8;2HIt costs %d cookies to build a clicker", clickCost);
 		printf("\x1b[9;2HIt costs %d cookies to hire a grandma", grandmaCost);
@@ -67,7 +67,7 @@ int main()
 			
 			if(cookies > clickCost){
 				cookies-=clickCost;
-				clickCost = clickCost * 1.5;
+				clickCost = clickCost * 1.2;
 				clickers++;
 			}
 		}
@@ -76,7 +76,7 @@ int main()
 		if( kDown & KEY_LEFT){
 			if(cookies >= grandmaCost){
 				cookies-=grandmaCost;
-				grandmaCost = grandmaCost * 1.5;
+				grandmaCost = grandmaCost * 1.2;
 				grandmas++;
 			}
 		}
@@ -84,7 +84,7 @@ int main()
 		if(kDown & KEY_RIGHT){
 			if(cookies >= bakeryCost){
 				cookies-=bakeryCost;
-				bakeryCost = bakeryCost * 1.5;
+				bakeryCost = bakeryCost * 1.2;
 				bakeries++;
 			} 
 		}
