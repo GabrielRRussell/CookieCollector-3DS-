@@ -6,8 +6,6 @@
 
 long long int cookies = 0;
 int cookieM = 1; //Multiplier
-int check = 0;
-int cookieMCost = 100; //Multiplier Cost
 int clickCost = 10; //Automatic Cost
 int grandmaCost = 100; //Automatic Cost
 int bakeryCost = 1000; //Automatic Cost
@@ -59,7 +57,6 @@ int main()
 		//Add Cookies	
 		if (kDown & KEY_A){
 			cookies = cookies + cookieM;
-			check = 1;
 		}
 			
 		//Buy clicker	
@@ -98,6 +95,8 @@ int main()
 			cookies = cookies + clickers;
 			
 			cookies = cookies + grandmas * 2;
+			
+			cookies = cookies + bakeries * 5;
 			
 			frames = 0;
 		}
