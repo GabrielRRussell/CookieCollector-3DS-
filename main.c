@@ -30,10 +30,10 @@ int main()
 	//Choose which screen to print to (top)
 	consoleSelect(&topScreen);
 
-	FILE * fp = fopen("/3ds/data/cookiecollector/test.txt", "r+");
+	FILE * fp = fopen("/3ds/data/cookiecollector/user.txt", "r+");
 	
 	if(!fp) { 
-		fp = fopen("/3ds/data/cookiecollector/test.txt", "w+");
+		fp = fopen("/3ds/data/cookiecollector/user.txt", "w+");
 	}
 	
     fread(&cookies, sizeof(u64), 1, fp);
