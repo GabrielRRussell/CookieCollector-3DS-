@@ -31,6 +31,11 @@ int main()
 	consoleSelect(&topScreen);
 
 	FILE * fp = fopen("/3ds/data/cookiecollector/test.txt", "r+");
+	
+	if(!fp) { 
+		fp = fopen("/3ds/data/cookiecollector/test.txt", "w+");
+	}
+	
     fread(&cookies, sizeof(u64), 1, fp);
 	fread(buildingData, sizeof(u64), 5, fp);
 	rewind(fp);
@@ -107,15 +112,13 @@ int main()
 		{
 			cookies = cookies + buildingData[0];
 			
-			cookies = cookies + buildingData[1] * 2;
+			cookies = cookies + buildingData[1] * 5;
 			
-			cookies = cookies + buildingData[2] * 5;
+			cookies = cookies + buildingData[2] * 15;
 			
 			frames = 0;
 			
 		}
-		
-				printf("\e[K");
 		
 		//%d is a replacement for an integer
 		printf("\x1b[1;1HYou gain %d cookies per click!\e[K\n", cookieM);
