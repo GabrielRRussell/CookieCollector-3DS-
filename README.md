@@ -3,7 +3,7 @@ A short Cookie Clicker-like app for the 3DS Family homebrew. Built using devkitP
 
 # Usage
 
-This may not compile, as the code is very old. Grab a release file from the releases page, or compile the code yourself. Place the 3DSX and SDMH in /root/3DS/games/CookieCollector/.
+Grab a release file from the releases page, or compile the code yourself. Place the 3DSX and SDMH in /root/3DS/games/CookieCollector/.
 
 Your files should look like this:
 
