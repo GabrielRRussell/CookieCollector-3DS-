@@ -31,3 +31,5 @@ This assumes you have installed the necessary libraries and DevkitPro.
 Credits to:
 
 The Machinump's for making readable timer code.
+
+LiquidFenrir on the homebrew discord for suffering through my mistakes and helping me with my mental sanity
