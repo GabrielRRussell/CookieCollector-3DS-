@@ -32,4 +32,6 @@ Credits to:
 
 The Machinump's for making readable timer code.
 
-LiquidFenrir on the homebrew discord for suffering through my mistakes and helping me with my mental sanity
+LiquidFenrir on the homebrew discord for suffering through my mistakes and helping me with my mental sanity when it came to saving a file
+
+Swiftloke and Realtime on the homebrew discord for helping me understand fopen more.
