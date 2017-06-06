@@ -73,43 +73,16 @@ int main()
 		
 	
 			//Add Cookies	
-			if (kDown & KEY_A){
+			if (kDown & KEY_X){
 				cookies = cookies + cookieM;
 			} 
 			
-			if (kDown & KEY_A & cursor == 14) {
+			if (kDown & KEY_A & cursor == 12) {
 				screen = 1;
+				cursor = 0;
 				consoleClear();
 			}
 			
-			//Buy clicker	
-			if (kDown & KEY_B){
-			
-				if(cookies >= buildingData[3]){
-					cookies-=buildingData[3];
-					buildingData[3] = buildingData[3] * 1.2;
-					buildingData[0]++;
-				}
-			}
-		
-			//Buy grandma
-			if( kDown & KEY_X){
-				if(cookies >= buildingData[4]){
-					cookies-=buildingData[4];
-					buildingData[4] = buildingData[4] * 1.2;
-					buildingData[1]++;
-				}
-			}
-		
-			if(kDown & KEY_Y){
-				if(cookies >= buildingData[5]){
-					cookies-=buildingData[5];
-					buildingData[5] = buildingData[5] * 1.2;
-					buildingData[2]++;
-				} 
-			}
-
-       
 			if (hidKeysDown() & KEY_SELECT) {
 				fwrite(&cookies, sizeof(u64), 1, fp);
 				fwrite(buildingData, sizeof(u64), 5, fp);
@@ -123,24 +96,18 @@ int main()
 			}
 			
 			if (cursor == 12 & screen == 0) {
-				printf("\x1b[12;3H> Option One\e[K\n");
-				printf("\x1b[13;3H  Option Two\e[K\n");
-				printf("\x1b[14;3H  Option Three\e[K\n");
+				printf("\x1b[12;3H> Shop\e[K\n");
+				printf("\x1b[13;3H  Config\e[K\n");
 			} else if (cursor == 13 & screen == 0) {
-				printf("\x1b[12;3H  Option One\e[K\n");
-				printf("\x1b[13;3H> Option Two\e[K\n");
-				printf("\x1b[14;3H  Option Three\e[K\n");
-			} else if (cursor == 14 & screen == 0) {
-				printf("\x1b[14;3H> Option Three\e[K\n");
-				printf("\x1b[12;3H  Option One\e[K\n");
-				printf("\x1b[13;3H  Option Two\e[K\n");
+				printf("\x1b[12;3H  Shop\e[K\n");
+				printf("\x1b[13;3H> Config\e[K\n");
 			}
 			
 			
 			if (cursor < 12) {
 				cursor = 12;
-			} else if (cursor > 14) {
-				cursor = 14;
+			} else if (cursor > 13) {
+				cursor = 13;
 			}
 			
 			
@@ -148,27 +115,81 @@ int main()
 			consoleSelect(&bottomScreen);
 		
 			//%d is a replacement for an integer
-			printf("\x1b[1;1HYou gain %d cookies per click!\e[K\n", cookieM);
+			printf("\x1b[1;1HPress X to gain %d cookies!\e[K\n", cookieM);
 			printf("\x1b[3;1HYou have %llu clickers so far!\e[K\n", buildingData[0]);
 			printf("\x1b[4;1HYou have %llu grandmas hired so far!\e[K\n", buildingData[1]);
 			printf("\x1b[5;1HYou have %llu bakeries built so far!\e[K\n", buildingData[2]);
-		
-			printf("\x1b[7;1HPress X to gain one cookie");
-			printf("\x1b[8;1HHttps://github.com/kaisogen/cookie-collector-3ds-");
-			printf("\x1b[9;1HUse the Up and Down Keys to select an option");
+			printf("\x1b[8;1HAuthor: Kaisogen");
+			printf("\x1b[9;1HPress /\\ or \\/ to select");
 			printf("\x1b[10;1HPress Select to Save");
 		
 		} else if (screen == 1) { //Select Shop
 			
 			consoleSelect(&topScreen);
 			
-			printf("\x1b[1;23HShop");
-			printf("\x1b[5;1 Press B to go back");
+			printf("\x1b[1;23HShop\e[K\n");
+			printf("\x1b[5;15HYou have: %lld cookies \e[K\n", cookies);
+			printf("\x1b[6;0H__________________________________________________\e[K\n");
+			printf("\x1b[8;0HPress B to go back\e[K\n");
+			
+			if (cursor > 12) {
+				cursor = 12;
+			} else if (cursor < 10) {
+				cursor = 10;
+			}
+			
+			if (kDown & KEY_DOWN) {
+				cursor++;
+			} else if (kDown & KEY_UP) {
+				cursor--;
+			}
+			
+			if (cursor == 10) {
+				printf("\x1b[10;2H> Clicker: %llu\e[K\n", buildingData[3]);
+				printf("\x1b[11;2H  Grandma: %llu\e[K\n", buildingData[4]);
+				printf("\x1b[12;2H  Bakery: %llu\e[K\n", buildingData[5]);
+			} else if (cursor == 11) {
+				printf("\x1b[10;2H  Clicker: %llu\e[K\n", buildingData[3]);
+				printf("\x1b[11;2H> Grandma: %llu\e[K\n", buildingData[4]);
+				printf("\x1b[12;2H  Bakery: %llu\e[K\n", buildingData[5]);
+			} else if (cursor == 12) {
+				printf("\x1b[10;2H  Clicker: %llu\e[K\n", buildingData[3]);
+				printf("\x1b[11;2H  Grandma: %llu\e[K\n", buildingData[4]);
+				printf("\x1b[12;2H> Bakery: %llu\e[K\n", buildingData[5]);
+			}
 			
 			
 			if (kDown & KEY_B) {
 				screen = 0;
+				cursor = 0;
 				consoleClear();
+			}
+			
+					//Buy clicker	
+			if (cursor == 10 & kDown & KEY_A){
+			
+				if(cookies >= buildingData[3]){
+					cookies-=buildingData[3];
+					buildingData[3] = buildingData[3] * 1.2;
+					buildingData[0]++;
+				}
+			}
+		
+			//Buy grandma
+			if(cursor == 11 & kDown * KEY_A){
+				if(cookies >= buildingData[4]){
+					cookies-=buildingData[4];
+					buildingData[4] = buildingData[4] * 1.2;
+					buildingData[1]++;
+				}
+			}
+		
+			if(kDown & KEY_A & cursor == 12){
+				if(cookies >= buildingData[5]){
+					cookies-=buildingData[5];
+					buildingData[5] = buildingData[5] * 1.2;
+					buildingData[2]++;
+				} 
 			}
 			
 			
