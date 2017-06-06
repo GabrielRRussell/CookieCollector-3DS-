@@ -33,14 +33,14 @@ DATA		:=	data
 INCLUDES	:=	include
 
 APP_TITLE	:=	Cookie Collector 3DS
-APP_DESCRIPTION	:=	Collect cookies, and get a highscore that will make your friends jealous!
+APP_DESCRIPTION	:=	Cookie Collector 3DS by Kaisogen
 APP_AUTHOR	:=	Kaisogen
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
 ARCH	:=	-march=armv6k -mtune=mpcore -mfloat-abi=hard
 
-CFLAGS	:=	-g -Wall -O2 -mword-relocations \
+CFLAGS	:=	-g -Wall -O2 -Wextra -mword-relocations \
 			-fomit-frame-pointer -ffast-math \
 			$(ARCH)
 
