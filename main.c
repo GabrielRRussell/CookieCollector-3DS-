@@ -119,7 +119,6 @@ int main()
 			printf("\x1b[5;1HYou have %llu bakeries built so far!\e[K\n", buildingData[2]);
 			printf("\x1b[8;1HAuthor: Kaisogen");
 			printf("\x1b[9;1HPress /\\ or \\/ to select");
-			printf("\x1b[10;1HPress Select to Save");
 		
 		} else if (screen == 1) { //Select Shop
 			
