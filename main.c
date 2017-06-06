@@ -82,9 +82,9 @@ int main()
 				cursor = 0;
 				consoleClear();
 			} else if (kDown & KEY_A & (cursor == 13)) {
-				fwrite(&cookies, sizeof(u64), 1, fp);
-				fwrite(buildingData, sizeof(u64), 5, fp);
-				fclose(fp);	
+				screen = 2;
+				cursor = 0;
+				consoleClear();
 			}
 						
 			if (kDown & KEY_DOWN) {
@@ -95,10 +95,10 @@ int main()
 			
 			if (cursor == 12 & screen == 0) {
 				printf("\x1b[12;3H> Shop\e[K\n");
-				printf("\x1b[13;3H  Save\e[K\n");
+				printf("\x1b[13;3H  Options\e[K\n");
 			} else if (cursor == 13 & screen == 0) {
 				printf("\x1b[12;3H  Shop\e[K\n");
-				printf("\x1b[13;3H> Save\e[K\n");
+				printf("\x1b[13;3H> Options\e[K\n");
 			}
 			
 			
@@ -188,7 +188,62 @@ int main()
 					buildingData[2]++;
 				} 
 			}
+			//----------------------------------------------------
+			//---------------------End Of-------------------------
+			//---------------------Screen-------------------------
+			//----------------------------------------------------
 			
+		} else if (screen == 2) {
+		
+			if (kDown & KEY_B) {
+				screen = 0;
+				cursor = 0;
+				consoleClear();
+			}
+			consoleSelect(&topScreen);
+			
+			printf("\x1b[1;23HConfig\e[K\n");
+			printf("\x1b[5;15HYou have: %lld cookies \e[K\n", cookies);
+			printf("\x1b[6;0H__________________________________________________\e[K\n");
+
+		if (screen == 2){printf("\x1b[8;0HPress B to go back\e[K\n");}
+			
+
+			if (cursor > 12) {
+				cursor = 11;
+			} else if (cursor < 11) {
+				cursor = 11;
+			}
+			
+			if (kDown & KEY_DOWN) {
+				cursor++;
+			} else if (kDown & KEY_UP) {
+				cursor--;
+			}
+			
+			if (cursor == 11) {
+				printf("\x1b[11;2H> Save\e[K\n");
+				printf("\x1b[12;2H  Reset\e[K\n");
+			} else if (cursor == 12) {
+				printf("\x1b[11;2H  Save\e[K\n");
+				printf("\x1b[12;2H> Reset (THIS CANNOT BE UNDONE)\e[K\n");
+			}
+			
+			if ((cursor == 11) & kDown & KEY_A) {
+				fwrite(&cookies, sizeof(u64), 1, fp);
+				fwrite(buildingData, sizeof(u64), 5, fp);
+				fclose(fp);	
+			} else if ((cursor == 12) & kDown & KEY_A) {
+				buildingData[0] = 0;
+				buildingData[1] = 0;
+				buildingData[2] = 0;
+				buildingData[3] = 0;
+				buildingData[4] = 0;
+				buildingData[5] = 0;
+				fwrite(&cookies, sizeof(u64), 1, fp);
+				fwrite(buildingData, sizeof(u64), 5, fp);
+				fclose(fp);	
+			}
 			
 			
 		}
