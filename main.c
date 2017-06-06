@@ -63,17 +63,13 @@ int main()
 			consoleSelect(&topScreen);
 
 			// Title Screen
-			printf("\x1b[1;14HCookie Collector 3DS");
+			printf("\x1b[1;14HCookie Collector 3DS\e[K\n");
 			printf("\x1b[5;15HYou have: %lld cookies \e[K\n", cookies);
 			printf("\x1b[6;0H__________________________________________________");
 			printf("\x1b[8;2HIt costs %llu cookies to build a clicker\e[K\n", buildingData[3]);
 			printf("\x1b[9;2HIt costs %llu cookies to hire a grandma\e[K\n", buildingData[4]);
 			printf("\x1b[10;2HIt costs %llu cookies to build a bakery\e[K\n", buildingData[5]);
 			
-			printf("\x1b[12;5HOption One\e[K\n");
-			printf("\x1b[13;5HOption Two\e[K\n");
-			printf("\x1b[14;5HOption Three (Screen Two)\e[K\n");
-			printf("\x1b[%d;1H>\e[K\n", cursor);
 		
 	
 			//Add Cookies	
@@ -83,6 +79,7 @@ int main()
 			
 			if (kDown & KEY_A & cursor == 14) {
 				screen = 1;
+				consoleClear();
 			}
 			
 			//Buy clicker	
@@ -120,10 +117,25 @@ int main()
 			}
 			
 			if (kDown & KEY_DOWN) {
-				cursor--;
-			} else if (kDown & KEY_UP) {
 				cursor++;
+			} else if (kDown & KEY_UP) {
+				cursor--;
 			}
+			
+			if (cursor == 12 & screen == 0) {
+				printf("\x1b[12;3H> Option One\e[K\n");
+				printf("\x1b[13;3H  Option Two\e[K\n");
+				printf("\x1b[14;3H  Option Three\e[K\n");
+			} else if (cursor == 13 & screen == 0) {
+				printf("\x1b[12;3H  Option One\e[K\n");
+				printf("\x1b[13;3H> Option Two\e[K\n");
+				printf("\x1b[14;3H  Option Three\e[K\n");
+			} else if (cursor == 14 & screen == 0) {
+				printf("\x1b[14;3H> Option Three\e[K\n");
+				printf("\x1b[12;3H  Option One\e[K\n");
+				printf("\x1b[13;3H  Option Two\e[K\n");
+			}
+			
 			
 			if (cursor < 12) {
 				cursor = 12;
@@ -141,16 +153,23 @@ int main()
 			printf("\x1b[4;1HYou have %llu grandmas hired so far!\e[K\n", buildingData[1]);
 			printf("\x1b[5;1HYou have %llu bakeries built so far!\e[K\n", buildingData[2]);
 		
-			printf("\x1b[7;1HPress B to buy a clicker");
-			printf("\x1b[8;1HPress X to hire a grandma");
-			printf("\x1b[9;1HPress Y to produce a factory");
+			printf("\x1b[7;1HPress X to gain one cookie");
+			printf("\x1b[8;1HHttps://github.com/kaisogen/cookie-collector-3ds-");
+			printf("\x1b[9;1HUse the Up and Down Keys to select an option");
 			printf("\x1b[10;1HPress Select to Save");
 		
 		} else if (screen == 1) { //Select Shop
 			
 			consoleSelect(&topScreen);
 			
-			printf("\x1b[10;10HTest Shop Screen\e[K\n");
+			printf("\x1b[1;23HShop");
+			printf("\x1b[5;1 Press B to go back");
+			
+			
+			if (kDown & KEY_B) {
+				screen = 0;
+				consoleClear();
+			}
 			
 			
 			
