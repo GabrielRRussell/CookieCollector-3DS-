@@ -81,14 +81,12 @@ int main()
 				screen = 1;
 				cursor = 0;
 				consoleClear();
-			}
-			
-			if (hidKeysDown() & KEY_SELECT) {
+			} else if (kDown & KEY_A & (cursor == 13)) {
 				fwrite(&cookies, sizeof(u64), 1, fp);
 				fwrite(buildingData, sizeof(u64), 5, fp);
-				fclose(fp);
+				fclose(fp);	
 			}
-			
+						
 			if (kDown & KEY_DOWN) {
 				cursor++;
 			} else if (kDown & KEY_UP) {
@@ -97,10 +95,10 @@ int main()
 			
 			if (cursor == 12 & screen == 0) {
 				printf("\x1b[12;3H> Shop\e[K\n");
-				printf("\x1b[13;3H  Config\e[K\n");
+				printf("\x1b[13;3H  Save\e[K\n");
 			} else if (cursor == 13 & screen == 0) {
 				printf("\x1b[12;3H  Shop\e[K\n");
-				printf("\x1b[13;3H> Config\e[K\n");
+				printf("\x1b[13;3H> Save\e[K\n");
 			}
 			
 			
