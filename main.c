@@ -23,7 +23,7 @@ int main()
 	buildingData[5] = 1000; // Bakery Cost
 	buildingData[6] = 1; //Cookie Multiplier
 	buildingData[7] = 10000; //Cookie Multiplayer Cost
-
+	
 	gfxInitDefault();
 	//Select Screens
 	PrintConsole topScreen, bottomScreen;
@@ -95,11 +95,11 @@ int main()
 			}
 			
 			if (cursor == 12 & screen == 0) {
-				printf("\x1b[12;3H> Shop\e[K\n");
-				printf("\x1b[13;3H  Options\e[K\n");
+				printf("\x1b[12;2H> Shop\e[K\n");
+				printf("\x1b[13;2H  Options\e[K\n");
 			} else if (cursor == 13 & screen == 0) {
-				printf("\x1b[12;3H  Shop\e[K\n");
-				printf("\x1b[13;3H> Options\e[K\n");
+				printf("\x1b[12;2H  Shop\e[K\n");
+				printf("\x1b[13;2H> Options\e[K\n");
 			}
 			
 			
@@ -205,15 +205,19 @@ int main()
 			if (kDown & KEY_B) {
 				screen = 0;
 				cursor = 0;
+				printf("\x1b[8;H \e[K\n");
+				printf("\x1b[11;0H \e[K\n");
 				consoleClear();
+				
 			}
 			consoleSelect(&topScreen);
-			
 			printf("\x1b[1;23HConfig\e[K\n");
 			printf("\x1b[5;15HYou have: %lld cookies \e[K\n", cookies);
 			printf("\x1b[6;0H__________________________________________________\e[K\n");
 
-		if (screen == 2){printf("\x1b[8;0HPress B to go back\e[K\n");}
+		if (screen == 2){
+			printf("\x1b[8;2HPress B to go back\e[K\n");
+		}
 			
 
 			if (cursor > 12) {
@@ -229,16 +233,16 @@ int main()
 			}
 			
 			if (cursor == 11 & screen == 2) {
-				printf("\x1b[11;2H> Save\e[K\n");
-				printf("\x1b[12;2H  Reset\e[K\n");
+				printf("\x1b[12;2H> Save\e[K\n");
+				printf("\x1b[13;2H  Reset\e[K\n");
 			} else if (cursor == 12 & screen == 2) {
-				printf("\x1b[11;2H  Save\e[K\n");
-				printf("\x1b[12;2H> Reset (THIS CANNOT BE UNDONE)\e[K\n");
+				printf("\x1b[12;2H  Save\e[K\n");
+				printf("\x1b[13;2H> Reset (THIS CANNOT BE UNDONE)\e[K\n");
 			}
 			
 			if ((cursor == 11) & kDown & KEY_A) {
 				fwrite(&cookies, sizeof(u64), 1, fp);
-				fwrite(buildingData, sizeof(u64), 5, fp);
+				fwrite(buildingData, sizeof(u64), 8, fp);
 				fclose(fp);	
 			} else if ((cursor == 12) & kDown & KEY_A) {
 				cookies = 0;
@@ -248,8 +252,10 @@ int main()
 				buildingData[3] = 10;
 				buildingData[4] = 100;
 				buildingData[5] = 1000;
+				buildingData[6] = 1;
+				buildingData[7] = 10000;
 				fwrite(&cookies, sizeof(u64), 1, fp);
-				fwrite(buildingData, sizeof(u64), 7, fp);
+				fwrite(buildingData, sizeof(u64), 8, fp);
 				fclose(fp);	
 			}
 			
