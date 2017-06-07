@@ -44,7 +44,7 @@ int main()
 	
 	//Write data from file to variables.
     fread(&cookies, sizeof(u64), 1, fp);
-	fread(buildingData, sizeof(u64), 5, fp);
+	fread(buildingData, sizeof(u64), 7, fp);
 	rewind(fp);
 	
 	// Main loop
@@ -109,17 +109,6 @@ int main()
 				cursor = 13;
 			}
 			
-			
-		
-			consoleSelect(&bottomScreen);
-		
-			//%d is a replacement for an integer
-			printf("\x1b[1;1HPress X to gain %llu cookies!\e[K\n", buildingData[6]);
-			printf("\x1b[3;1HYou have %llu clickers so far!\e[K\n", buildingData[0]);
-			printf("\x1b[4;1HYou have %llu grandmas hired so far!\e[K\n", buildingData[1]);
-			printf("\x1b[5;1HYou have %llu bakeries built so far!\e[K\n", buildingData[2]);
-			printf("\x1b[8;1HAuthor: Kaisogen");
-			printf("\x1b[9;1HPress /\\ or \\/ to select");
 		
 		} else if (screen == 1) { //Select Shop
 			
@@ -260,12 +249,22 @@ int main()
 				buildingData[4] = 100;
 				buildingData[5] = 1000;
 				fwrite(&cookies, sizeof(u64), 1, fp);
-				fwrite(buildingData, sizeof(u64), 5, fp);
+				fwrite(buildingData, sizeof(u64), 7, fp);
 				fclose(fp);	
 			}
 			
 			
 		}
+		
+			consoleSelect(&bottomScreen);
+		
+			//%d is a replacement for an integer
+			printf("\x1b[1;1HPress X to gain %llu cookies!\e[K\n", buildingData[6]);
+			printf("\x1b[3;1HYou have %llu clickers so far!\e[K\n", buildingData[0]);
+			printf("\x1b[4;1HYou have %llu grandmas hired so far!\e[K\n", buildingData[1]);
+			printf("\x1b[5;1HYou have %llu bakeries built so far!\e[K\n", buildingData[2]);
+			printf("\x1b[8;1HAuthor: Kaisogen");
+			printf("\x1b[9;1HPress /\\ or \\/ to select");
 		
 		
 		// Flush and swap frame-buffers
