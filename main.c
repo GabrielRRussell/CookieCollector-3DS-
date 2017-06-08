@@ -6,23 +6,27 @@
 
 u64 cookies = 0;
 int screen = 0;
-int cursor = 12;
+int cursor = 0;
 
 // Keep track of values
 
-u64 buildingData[8] = {0};
+u64 buildingData[10] = {0};
 
 //Framerate Check
 int frames = 0; 
+int longTimer = 0;
 
 int main()
 {
 
-	buildingData[3] = 10; // Clicker Cost
-	buildingData[4] = 100; // Grandma Cost
-	buildingData[5] = 1000; // Bakery Cost
+	buildingData[3] = 100; // Clicker Cost
+	buildingData[4] = 1000; // Grandma Cost
+	buildingData[5] = 10000; // Bakery Cost
 	buildingData[6] = 1; //Cookie Multiplier
 	buildingData[7] = 10000; //Cookie Multiplayer Cost
+	buildingData[8] = 100000; //Clicker Upgrade Cost
+	buildingData[9] = 1; //Clicker Upgrade Total
+	
 	
 	gfxInitDefault();
 	//Select Screens
@@ -44,7 +48,7 @@ int main()
 	
 	//Write data from file to variables.
     fread(&cookies, sizeof(u64), 1, fp);
-	fread(buildingData, sizeof(u64), 7, fp);
+	fread(buildingData, sizeof(u64), 10, fp);
 	rewind(fp);
 	
 	// Main loop
@@ -78,11 +82,11 @@ int main()
 				cookies = cookies + buildingData[6];
 			} 
 			
-			if (kDown & KEY_A & cursor == 12) {
+			if (kDown & KEY_A & cursor == 1) {
 				screen = 1;
 				cursor = 0;
 				consoleClear();
-			} else if (kDown & KEY_A & (cursor == 13)) {
+			} else if (kDown & KEY_A & (cursor == 2)) {
 				screen = 2;
 				cursor = 0;
 				consoleClear();
@@ -94,19 +98,19 @@ int main()
 				cursor--;
 			}
 			
-			if (cursor == 12 & screen == 0) {
+			if (cursor == 1 & screen == 0) {
 				printf("\x1b[12;2H> Shop\e[K\n");
 				printf("\x1b[13;2H  Options\e[K\n");
-			} else if (cursor == 13 & screen == 0) {
+			} else if (cursor == 2 & screen == 0) {
 				printf("\x1b[12;2H  Shop\e[K\n");
 				printf("\x1b[13;2H> Options\e[K\n");
 			}
 			
 			
-			if (cursor < 12) {
-				cursor = 12;
-			} else if (cursor > 13) {
-				cursor = 13;
+			if (cursor < 1) {
+				cursor = 1;
+			} else if (cursor > 2) {
+				cursor = 2;
 			}
 			
 		
@@ -119,10 +123,10 @@ int main()
 			printf("\x1b[6;0H__________________________________________________\e[K\n");
 			printf("\x1b[8;0HPress B to go back\e[K\n");
 			
-			if (cursor > 13) {
-				cursor = 13;
-			} else if (cursor < 10) {
-				cursor = 10;
+			if (cursor > 4) {
+				cursor = 4;
+			} else if (cursor < 1) {
+				cursor = 1;
 			}
 			
 			if (kDown & KEY_DOWN) {
@@ -131,26 +135,52 @@ int main()
 				cursor--;
 			}
 			
-			if (cursor == 10) {
-				printf("\x1b[10;2H> Clicker: %llu\e[K\n", buildingData[3]);
-				printf("\x1b[11;2H  Grandma: %llu\e[K\n", buildingData[4]);
-				printf("\x1b[12;2H  Bakery: %llu\e[K\n", buildingData[5]);
-				printf("\x1b[14;2H  Upgrade Clicker: %llu\e[K\n", buildingData[7]);
-			} else if (cursor == 11) {
-				printf("\x1b[10;2H  Clicker: %llu\e[K\n", buildingData[3]);
-				printf("\x1b[11;2H> Grandma: %llu\e[K\n", buildingData[4]);
-				printf("\x1b[12;2H  Bakery: %llu\e[K\n", buildingData[5]);
-				printf("\x1b[14;2H  Upgrade Clicker: %llu\e[K\n", buildingData[7]);
-			} else if (cursor == 12) {
-				printf("\x1b[10;2H  Clicker: %llu\e[K\n", buildingData[3]);
-				printf("\x1b[11;2H  Grandma: %llu\e[K\n", buildingData[4]);
-				printf("\x1b[12;2H> Bakery: %llu\e[K\n", buildingData[5]);
-				printf("\x1b[14;2H  Upgrade Clicker: %llu\e[K\n", buildingData[7]);
-			} else if (cursor== 13) {
-				printf("\x1b[10;2H  Clicker: %llu\e[K\n", buildingData[3]);
-				printf("\x1b[11;2H  Grandma: %llu\e[K\n", buildingData[4]);
-				printf("\x1b[12;2H  Bakery: %llu\e[K\n", buildingData[5]);
-				printf("\x1b[14;2H> Upgrade Clicker: %llu\e[K\n", buildingData[7]);
+			if (cursor == 1) {
+				printf("\x1b[10;2H> Clicker:         %llu\e[K\n", buildingData[3]);
+				printf("\x1b[11;2H  Grandma:         %llu\e[K\n", buildingData[4]);
+				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingData[5]);
+				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
+				if (buildingData[1] == 100) {
+				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[9]);
+				}
+			
+			} else if (cursor == 2) {
+				printf("\x1b[10;2H  Clicker:         %llu\e[K\n", buildingData[3]);
+				printf("\x1b[11;2H> Grandma:         %llu\e[K\n", buildingData[4]);
+				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingData[5]);
+				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
+				if (buildingData[1] == 100) {
+				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[9]);
+				}
+				
+			} else if (cursor == 3) {
+				printf("\x1b[10;2H  Clicker:         %llu\e[K\n", buildingData[3]);
+				printf("\x1b[11;2H  Grandma:         %llu\e[K\n", buildingData[4]);
+				printf("\x1b[12;2H> Bakery:          %llu\e[K\n", buildingData[5]);
+				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
+				
+				if (buildingData[1] == 100) {
+				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[9]);
+				}
+				
+			} else if (cursor== 4) {
+				printf("\x1b[10;2H  Clicker:         %llu\e[K\n", buildingData[3]);
+				printf("\x1b[11;2H  Grandma:         %llu\e[K\n", buildingData[4]);
+				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingData[5]);
+				printf("\x1b[14;2H> Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
+				
+				if (buildingData[1] == 100) {
+				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[9]);
+				}
+			} else if (cursor == 5) {
+				printf("\x1b[10;2H  Clicker:         %llu\e[K\n", buildingData[3]);
+				printf("\x1b[11;2H  Grandma:         %llu\e[K\n", buildingData[4]);
+				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingData[5]);
+				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
+				
+				if (buildingData[1] == 100) {
+				printf("\x1b[15;2H>  Upgrade Clicker: %llu\e[K\n", buildingData[9]);
+				}
 			}
 			
 			
@@ -161,7 +191,7 @@ int main()
 			}
 			
 					//Buy clicker	
-			if (cursor == 10 & kDown & KEY_A){
+			if (cursor == 1 & kDown & KEY_A){
 			
 				if(cookies >= buildingData[3]){
 					cookies-=buildingData[3];
@@ -171,7 +201,7 @@ int main()
 			}
 		
 			//Buy grandma
-			if(cursor == 11 & kDown * KEY_A){
+			if(cursor == 2 & kDown * KEY_A){
 				if(cookies >= buildingData[4]){
 					cookies-=buildingData[4];
 					buildingData[4] = buildingData[4] * 1.2;
@@ -179,7 +209,7 @@ int main()
 				}
 			}
 		
-			if(kDown & KEY_A & cursor == 12){
+			if(kDown & KEY_A & cursor == 3){
 				if(cookies >= buildingData[5]){
 					cookies-=buildingData[5];
 					buildingData[5] = buildingData[5] * 1.2;
@@ -187,13 +217,21 @@ int main()
 				} 
 			}
 			
-			if(kDown & KEY_A & cursor == 13) {
+			if(kDown & KEY_A & cursor == 4) {
 				if(cookies >= buildingData[7]) {
 					cookies-=buildingData[7];
 					buildingData[7] = buildingData[7] * 1.2;
 					buildingData[6]++;
 				}
 			
+			}
+			
+			if(kDown & KEY_A & cursor == 5) {
+				if(cookies >= buildingData[8]) {
+					cookies-= buildingData[8];
+					buildingData[8] = buildingData[8] * 1.2;
+					buildingData[9]++;
+				}
 			}
 			//----------------------------------------------------
 			//---------------------End Of-------------------------
@@ -205,8 +243,8 @@ int main()
 			if (kDown & KEY_B) {
 				screen = 0;
 				cursor = 0;
-				printf("\x1b[8;H \e[K\n");
-				printf("\x1b[11;0H \e[K\n");
+				printf("\x1b[8;H          \e[K\n");
+				printf("\x1b[11;0H        \e[K\n");
 				consoleClear();
 				
 			}
@@ -215,15 +253,15 @@ int main()
 			printf("\x1b[5;15HYou have: %lld cookies \e[K\n", cookies);
 			printf("\x1b[6;0H__________________________________________________\e[K\n");
 
-		if (screen == 2){
-			printf("\x1b[8;2HPress B to go back\e[K\n");
-		}
+			if (screen == 2){
+				printf("\x1b[8;2HPress B to go back\e[K\n");
+			}
 			
 
-			if (cursor > 12) {
-				cursor = 12;
-			} else if (cursor < 11) {
-				cursor = 11;
+			if (cursor > 2) {
+				cursor = 2;
+			} else if (cursor < 1) {
+				cursor = 1;
 			}
 			
 			if (kDown & KEY_DOWN) {
@@ -232,19 +270,19 @@ int main()
 				cursor--;
 			}
 			
-			if (cursor == 11 & screen == 2) {
+			if (cursor == 1 & screen == 2) {
 				printf("\x1b[12;2H> Save\e[K\n");
 				printf("\x1b[13;2H  Reset\e[K\n");
-			} else if (cursor == 12 & screen == 2) {
+			} else if (cursor == 2 & screen == 2) {
 				printf("\x1b[12;2H  Save\e[K\n");
 				printf("\x1b[13;2H> Reset (THIS CANNOT BE UNDONE)\e[K\n");
 			}
 			
-			if ((cursor == 11) & kDown & KEY_A) {
+			if ((cursor == 1) & kDown & KEY_A) {
 				fwrite(&cookies, sizeof(u64), 1, fp);
-				fwrite(buildingData, sizeof(u64), 8, fp);
+				fwrite(buildingData, sizeof(u64), 10, fp);
 				fclose(fp);	
-			} else if ((cursor == 12) & kDown & KEY_A) {
+			} else if ((cursor == 2) & kDown & KEY_A) {
 				cookies = 0;
 				buildingData[0] = 0;
 				buildingData[1] = 0;
@@ -255,7 +293,7 @@ int main()
 				buildingData[6] = 1;
 				buildingData[7] = 10000;
 				fwrite(&cookies, sizeof(u64), 1, fp);
-				fwrite(buildingData, sizeof(u64), 8, fp);
+				fwrite(buildingData, sizeof(u64), 10, fp);
 				fclose(fp);	
 			}
 			
@@ -282,13 +320,24 @@ int main()
 		
 		if (frames % 60 == 0) 
 		{
-			cookies = cookies + buildingData[0];
+			cookies = cookies + (buildingData[0] * buildingData[9]);
 			
 			cookies = cookies + buildingData[1] * 5;
 			
 			cookies = cookies + buildingData[2] * 15;
 			
 			frames = 0;
+			
+		}
+		
+		if (longTimer % 600 == 0) 
+		{
+			
+			longTimer = 0;
+			
+			fwrite(&cookies, sizeof(u64), 1, fp);
+			fwrite(buildingData, sizeof(u64), 10, fp);
+			fclose(fp);	
 			
 		}
 		
