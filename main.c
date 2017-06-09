@@ -140,7 +140,7 @@ int main()
 				printf("\x1b[11;2H  Grandma:         %llu\e[K\n", buildingData[4]);
 				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingData[5]);
 				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
-				if (buildingData[1] >= 25) {
+				if (buildingData[0] >= 25) {
 				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[9]);
 				}
 			
@@ -149,7 +149,7 @@ int main()
 				printf("\x1b[11;2H> Grandma:         %llu\e[K\n", buildingData[4]);
 				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingData[5]);
 				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
-				if (buildingData[1] >= 25) {
+				if (buildingData[0] >= 25) {
 				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[9]);
 				}
 				
@@ -159,7 +159,7 @@ int main()
 				printf("\x1b[12;2H> Bakery:          %llu\e[K\n", buildingData[5]);
 				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
 				
-				if (buildingData[1] >= 25) {
+				if (buildingData[0] >= 25) {
 				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[9]);
 				}
 				
@@ -169,7 +169,7 @@ int main()
 				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingData[5]);
 				printf("\x1b[14;2H> Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
 				
-				if (buildingData[1] >= 25) {
+				if (buildingData[0] >= 25) {
 				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[9]);
 				}
 			} else if (cursor == 5) {
@@ -178,7 +178,7 @@ int main()
 				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingData[5]);
 				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
 				
-				if (buildingData[1] >= 25) {
+				if (buildingData[0] >= 25) {
 				printf("\x1b[15;2H>  Upgrade Clicker: %llu\e[K\n", buildingData[9]);
 				}
 			}
