@@ -19,9 +19,9 @@ int longTimer = 0;
 int main()
 {
 
-	buildingData[3] = 100; // Clicker Cost
-	buildingData[4] = 1000; // Grandma Cost
-	buildingData[5] = 10000; // Bakery Cost
+	buildingData[3] = 10; // Clicker Cost
+	buildingData[4] = 100; // Grandma Cost
+	buildingData[5] = 1000; // Bakery Cost
 	buildingData[6] = 1; //Cookie Multiplier
 	buildingData[7] = 10000; //Cookie Multiplayer Cost
 	buildingData[8] = 100000; //Clicker Upgrade Cost
@@ -292,6 +292,8 @@ int main()
 				buildingData[5] = 1000;
 				buildingData[6] = 1;
 				buildingData[7] = 10000;
+				buildingData[8] = 100000;
+				buildingData[9] = 1;
 				fwrite(&cookies, sizeof(u64), 1, fp);
 				fwrite(buildingData, sizeof(u64), 10, fp);
 				fclose(fp);	
@@ -330,16 +332,17 @@ int main()
 			
 		}
 		
-		if (longTimer % 600 == 0) 
-		{
+		//Yeah, this isn't working. I'll take a minute to figure this out later.
+		//if (longTimer % 600 == 0) 
+		//{
 			
-			longTimer = 0;
+		//	longTimer = 0;
 			
-			fwrite(&cookies, sizeof(u64), 1, fp);
-			fwrite(buildingData, sizeof(u64), 10, fp);
-			fclose(fp);	
+		//	fwrite(&cookies, sizeof(u64), 1, fp);
+			//fwrite(buildingData, sizeof(u64), 10, fp);
+			//fclose(fp);	
 			
-		}
+		//}
 		
 		
 	}
