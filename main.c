@@ -123,8 +123,8 @@ int main()
 			printf("\x1b[6;0H__________________________________________________\e[K\n");
 			printf("\x1b[8;0HPress B to go back\e[K\n");
 			
-			if (cursor > 4) {
-				cursor = 4;
+			if (cursor > 5) {
+				cursor = 5;
 			} else if (cursor < 1) {
 				cursor = 1;
 			}
@@ -141,7 +141,7 @@ int main()
 				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingData[5]);
 				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
 				if (buildingData[0] >= 25) {
-				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[9]);
+				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[8]);
 				}
 			
 			} else if (cursor == 2) {
@@ -150,7 +150,7 @@ int main()
 				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingData[5]);
 				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
 				if (buildingData[0] >= 25) {
-				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[9]);
+				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[8]);
 				}
 				
 			} else if (cursor == 3) {
@@ -160,7 +160,7 @@ int main()
 				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
 				
 				if (buildingData[0] >= 25) {
-				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[9]);
+				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[8]);
 				}
 				
 			} else if (cursor== 4) {
@@ -170,7 +170,7 @@ int main()
 				printf("\x1b[14;2H> Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
 				
 				if (buildingData[0] >= 25) {
-				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[9]);
+				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[8]);
 				}
 			} else if (cursor == 5) {
 				printf("\x1b[10;2H  Clicker:         %llu\e[K\n", buildingData[3]);
@@ -179,7 +179,7 @@ int main()
 				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
 				
 				if (buildingData[0] >= 25) {
-				printf("\x1b[15;2H>  Upgrade Clicker: %llu\e[K\n", buildingData[9]);
+				printf("\x1b[15;2H>  Upgrade Clicker: %llu\e[K\n", buildingData[8]);
 				}
 			}
 			
