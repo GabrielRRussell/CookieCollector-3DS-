@@ -1,6 +1,14 @@
 # CookieCollector-3DS-
 A short Cookie Clicker-like app for the 3DS Family homebrew. Built using devkitPro in C.
 
+# Screenshots
+
+![Home](https://raw.githubusercontent.com/Kaisogen/CookieCollector-3DS-/screenshot/snap1.PNG)
+
+![Shop](https://raw.githubusercontent.com/Kaisogen/CookieCollector-3DS-/screenshot/snap2.PNG)
+
+![Config](https://raw.githubusercontent.com/Kaisogen/CookieCollector-3DS-/screenshot/snap3.PNG)
+
 # Usage
 
 Grab a release file from the releases page, or compile the code yourself. Place the 3DSX and SDMH in /root/3DS/games/CookieCollector/. Make sure /3ds/data/CookieCollector/ exists, or it may not start up.
