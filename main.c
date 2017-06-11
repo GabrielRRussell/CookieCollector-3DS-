@@ -319,6 +319,7 @@ int main()
 		
 		
 		frames++;
+		longTimer++;
 		
 		if (frames % 60 == 0) 
 		{
@@ -333,17 +334,14 @@ int main()
 		}
 		
 		//Yeah, this isn't working. I'll take a minute to figure this out later.
-		//if (longTimer % 600 == 0) 
-		//{
-			
-		//	longTimer = 0;
-			
-		//	fwrite(&cookies, sizeof(u64), 1, fp);
-			//fwrite(buildingData, sizeof(u64), 10, fp);
-			//fclose(fp);	
-			
-		//}
+		if (longTimer == 2700) {
 		
+			longTimer = 0;
+			
+			fwrite(&cookies, sizeof(u64), 1, fp);
+			fwrite(buildingData, sizeof(u64), 10, fp);
+			fclose(fp);	
+		}
 		
 	}
 	gfxExit();
