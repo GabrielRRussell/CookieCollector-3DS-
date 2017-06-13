@@ -179,7 +179,7 @@ int main()
 				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
 				
 				if (buildingData[0] >= 25) {
-				printf("\x1b[15;2H>  Upgrade Clicker: %llu\e[K\n", buildingData[8]);
+				printf("\x1b[15;2H> Upgrade Clicker: %llu\e[K\n", buildingData[8]);
 				}
 			}
 			
