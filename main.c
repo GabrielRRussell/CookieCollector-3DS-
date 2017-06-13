@@ -334,13 +334,18 @@ int main()
 		}
 		
 		//Yeah, this isn't working. I'll take a minute to figure this out later.
-		if (longTimer == 2700) {
+		
+		if (longTimer == 1500) {
 		
 			longTimer = 0;
 			
 			fwrite(&cookies, sizeof(u64), 1, fp);
 			fwrite(buildingData, sizeof(u64), 10, fp);
 			fclose(fp);	
+			consoleClear();
+		
+		} else if (longTimer >= 1000) {
+			printf("\x1b[12;1HAutosaving, don't quit.\e[K\n");
 		}
 		
 	}
