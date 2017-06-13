@@ -296,7 +296,7 @@ int main()
 				buildingData[9] = 1;
 				fwrite(&cookies, sizeof(u64), 1, fp);
 				fwrite(buildingData, sizeof(u64), 10, fp);
-				fclose(fp);	
+				fclose(fp);
 			}
 			
 			
@@ -337,11 +337,12 @@ int main()
 		
 		if (longTimer == 1500) {
 		
+			FILE * fp = fopen("/3ds/data/cookiecollector/user.txt", "r+");
+		
 			longTimer = 0;
-			
 			fwrite(&cookies, sizeof(u64), 1, fp);
 			fwrite(buildingData, sizeof(u64), 10, fp);
-			fclose(fp);	
+
 			consoleClear();
 		
 		} else if (longTimer >= 1000) {
