@@ -3,14 +3,16 @@
 #include <3ds.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "save.h"
 
-u64 cookies = 0;
+extern u64 cookies = 0;
 int screen = 0;
 int cursor = 0;
 
 // Keep track of values
 
-u64 buildingData[10] = {0};
+extern u64 buildingData[10] = {0};
+extern u64 upgradeData[4] = {0};
 
 //Framerate Check
 int frames = 0; 
@@ -24,8 +26,9 @@ int main()
 	buildingData[5] = 1000; // Bakery Cost
 	buildingData[6] = 1; //Cookie Multiplier
 	buildingData[7] = 10000; //Cookie Multiplayer Cost
-	buildingData[8] = 100000; //Clicker Upgrade Cost
-	buildingData[9] = 1; //Clicker Upgrade Total
+	
+	upgradeData[0] = 100000; //Clicker Upgrade Cost
+	upgradeData[1] = 1; //Clicker Upgrade Total
 	
 	
 	gfxInitDefault();
@@ -281,9 +284,7 @@ int main()
 			}
 			
 			if ((cursor == 1) & kDown & KEY_A) {
-				fwrite(&cookies, sizeof(u64), 1, fp);
-				fwrite(buildingData, sizeof(u64), 10, fp);
-				fclose(fp);	
+				saveGame();
 			} else if ((cursor == 2) & kDown & KEY_A) {
 				cookies = 0;
 				buildingData[0] = 0;
@@ -294,11 +295,9 @@ int main()
 				buildingData[5] = 1000;
 				buildingData[6] = 1;
 				buildingData[7] = 10000;
-				buildingData[8] = 100000;
-				buildingData[9] = 1;
-				fwrite(&cookies, sizeof(u64), 1, fp);
-				fwrite(buildingData, sizeof(u64), 10, fp);
-				fclose(fp);
+				upgradeData[0] = 100000;
+				upgradeData[1] = 1;
+				saveGame();
 			}
 			
 			
@@ -340,9 +339,7 @@ int main()
 		if (longTimer == 900) {
 			FILE * fp = fopen("/3ds/data/cookiecollector/user.txt", "r+");
 		
-			fwrite(&cookies, sizeof(u64), 1, fp);
-			fwrite(buildingData, sizeof(u64), 10, fp);
-			fclose(fp);
+			saveGame();
 			consoleClear();
 			longTimer = 0;
 		
