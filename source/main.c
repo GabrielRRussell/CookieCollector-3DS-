@@ -3,11 +3,11 @@
 #include <3ds.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "save.h"
+#include "functions.h"
 
 extern u64 cookies = 0;
 int screen = 0;
-int cursor = 0;
+extern int cursor = 0;
 
 // Keep track of values
 
@@ -66,7 +66,7 @@ int main()
 			break; //Break in order to return to hbmenu
 		
 		
-		if (screen == 0) { //Select Which Screen to Use
+		if (screen == 0) { //Select Which  Screen to Use
 
 			consoleSelect(&topScreen);
 
@@ -78,7 +78,7 @@ int main()
 			printf("\x1b[9;2HIt costs %llu cookies to hire a grandma \e[K\n", buildingData[4]);
 			printf("\x1b[10;2HIt costs %llu cookies to build a bakery\e[K\n", buildingData[5]);
 			
-		
+			moveCursor();
 	
 			//Add Cookies	
 			if (kDown & KEY_X){
@@ -94,12 +94,7 @@ int main()
 				cursor = 0;
 				consoleClear();
 			}
-						
-			if (kDown & KEY_DOWN) {
-				cursor++;
-			} else if (kDown & KEY_UP) {
-				cursor--;
-			}
+			
 			
 			if (cursor == 1 & screen == 0) {
 				printf("\x1b[12;2H\x1b[40;33m>\x1b[0m Shop\e[K\n");
@@ -110,11 +105,7 @@ int main()
 			}
 			
 			
-			if (cursor < 1) {
-				cursor = 1;
-			} else if (cursor > 2) {
-				cursor = 2;
-			}
+			resetCursor(1, 2);
 			
 		
 		} else if (screen == 1) { //Select Shop
@@ -134,11 +125,7 @@ int main()
 				cursor = 1;
 			}
 			
-			if (kDown & KEY_DOWN) {
-				cursor++;
-			} else if (kDown & KEY_UP) {
-				cursor--;
-			}
+			moveCursor();
 			
 			if (cursor == 1) {
 				printf("\x1b[10;2H\x1b[40;33m>\x1b[0m Clicker:         %llu\e[K\n", buildingData[3]);
@@ -263,17 +250,9 @@ int main()
 			}
 			
 
-			if (cursor > 2) {
-				cursor = 2;
-			} else if (cursor < 1) {
-				cursor = 1;
-			}
-			
-			if (kDown & KEY_DOWN) {
-				cursor++;
-			} else if (kDown & KEY_UP) {
-				cursor--;
-			}
+			resetCursor(1, 2);
+
+			moveCursor();
 			
 			if (cursor == 1 & screen == 2) {
 				printf("\x1b[12;2H\x1b[40;33m>\x1b[m Save\e[K\n");

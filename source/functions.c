@@ -2,7 +2,7 @@
 #include <3ds.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "save.h"
+#include "functions.h"
 
 void saveGame() {
 
@@ -13,4 +13,21 @@ void saveGame() {
 	fwrite(upgradeData, sizeof(u64), 4, fp);
 	fclose(fp);
 	
+}
+
+void moveCursor() {
+
+	if (hidKeysDown() & KEY_DOWN) {
+		cursor++;
+	} else if (hidKeysDown() & KEY_UP) {
+		cursor--;
+	}
+}
+
+void resetCursor(int min, int max) {
+	if (cursor > max) {
+		cursor = max;
+	} else if (cursor < min) {
+		cursor = min;
+	}
 }
