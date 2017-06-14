@@ -123,7 +123,9 @@ int main()
 			printf("\x1b[6;0H__________________________________________________\e[K\n");
 			printf("\x1b[8;0HPress B to go back\e[K\n");
 			
-			if (cursor > 5) {
+			if (cursor > 4 & (buildingData[1] <= 25) {
+				cursor = 4;
+			} else if (cursor > 5) {
 				cursor = 5;
 			} else if (cursor < 1) {
 				cursor = 1;
