@@ -68,12 +68,12 @@ int main()
 			consoleSelect(&topScreen);
 
 			// Title Screen
-			printf("\x1b[1;14HCookie Collector 3DS\e[K\n");
+			printf("\x1b[1;14H\x1b[47;30mCookie Collector 3DS\x1b[0m\e[K\n");
 			printf("\x1b[5;15HYou have: %lld cookies \e[K\n", cookies);
 			printf("\x1b[6;0H__________________________________________________");
-			printf("\x1b[8;2HIt costs %llu cookies to build a clicker\e[K\n", buildingData[3]);
-			printf("\x1b[9;2HIt costs %llu cookies to hire a grandma\e[K\n", buildingData[4]);
-			printf("\x1b[10;2HIt costs %llu cookies to build a bakery\e[K\n", buildingData[5]);
+			printf("\x1b[8;2H\x1b[42;37mIt costs %llu cookies to build a clicker \x1b[0m\e[K\n", buildingData[3]);
+			printf("\x1b[9;2H\x1b[42;37mIt costs %llu cookies to hire a grandma \x1b[0m\e[K\n", buildingData[4]);
+			printf("\x1b[10;2H\x1b[42;37mIt costs %llu cookies to build a bakery\x1b[0m\e[K\n", buildingData[5]);
 			
 		
 	
@@ -99,11 +99,11 @@ int main()
 			}
 			
 			if (cursor == 1 & screen == 0) {
-				printf("\x1b[12;2H> Shop\e[K\n");
+				printf("\x1b[12;2H\x1b[40;33m>\x1b[0m Shop\e[K\n");
 				printf("\x1b[13;2H  Options\e[K\n");
 			} else if (cursor == 2 & screen == 0) {
 				printf("\x1b[12;2H  Shop\e[K\n");
-				printf("\x1b[13;2H> Options\e[K\n");
+				printf("\x1b[13;2H\x1b[40;33m>\x1b[0m Options\e[K\n");
 			}
 			
 			
