@@ -71,9 +71,9 @@ int main()
 			printf("\x1b[1;14H\x1b[47;30mCookie Collector 3DS\x1b[0m\e[K\n");
 			printf("\x1b[5;15HYou have: %lld cookies \e[K\n", cookies);
 			printf("\x1b[6;0H__________________________________________________");
-			printf("\x1b[8;2H\x1b[42;37mIt costs %llu cookies to build a clicker \x1b[0m\e[K\n", buildingData[3]);
-			printf("\x1b[9;2H\x1b[42;37mIt costs %llu cookies to hire a grandma \x1b[0m\e[K\n", buildingData[4]);
-			printf("\x1b[10;2H\x1b[42;37mIt costs %llu cookies to build a bakery\x1b[0m\e[K\n", buildingData[5]);
+			printf("\x1b[8;2HIt costs %llu cookies to build a clicker \e[K\n", buildingData[3]);
+			printf("\x1b[9;2HIt costs %llu cookies to hire a grandma \e[K\n", buildingData[4]);
+			printf("\x1b[10;2HIt costs %llu cookies to build a bakery\e[K\n", buildingData[5]);
 			
 		
 	
@@ -337,7 +337,7 @@ int main()
 		
 		//Yeah, this isn't working. I'll take a minute to figure this out later.
 		
-		if (longTimer == 1500) {
+		if (longTimer == 900) {
 			FILE * fp = fopen("/3ds/data/cookiecollector/user.txt", "r+");
 		
 			fwrite(&cookies, sizeof(u64), 1, fp);
@@ -346,7 +346,7 @@ int main()
 			consoleClear();
 			longTimer = 0;
 		
-		} else if (longTimer >= 1000) {
+		} else if (longTimer >= 840) {
 			printf("\x1b[12;1H\x1b[43;31mAutosaving, don't quit.\x1b[0m\e[K\n");
 		}
 		
