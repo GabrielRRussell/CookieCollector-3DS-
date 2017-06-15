@@ -52,7 +52,16 @@ void loadGame() {
     fread(&cookies, sizeof(u64), 1, fp);
 	fread(buildingTotal, sizeof(u64), 4, fp);
 	fread(buildingCost, sizeof(u64), 4, fp);
-	fread(upgradeTotal, sizeof(u64), 5, fp);
 	fread(upgradeCost, sizeof(u64), 5, fp);
+	fread(upgradeTotal, sizeof(u64), 5, fp);
 	rewind(fp);
+}
+
+void makeSale(u64 increment, u64 cost) {
+	if (cookies >= cost) {
+		cookies -= cost;
+		cost = cost * 1.2;
+		increment++;
+	}
+	
 }
