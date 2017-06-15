@@ -11,8 +11,11 @@ extern int cursor = 0;
 
 // Keep track of values
 
-extern u64 buildingData[10] = {0};
-extern u64 upgradeData[4] = {0};
+extern u64 buildingTotal[4] = {0};
+extern u64 buildingCost[4] = {0};
+extern u64 upgradeTotal[5] = {0};
+extern u64 upgradeCost[5] = {0};
+
 
 //Framerate Check
 int frames = 0; 
@@ -21,14 +24,28 @@ int longTimer = 0;
 int main()
 {
 
-	buildingData[3] = 10; // Clicker Cost
-	buildingData[4] = 100; // Grandma Cost
-	buildingData[5] = 1000; // Bakery Cost
-	buildingData[6] = 1; //Cookie Multiplier
-	buildingData[7] = 10000; //Cookie Multiplayer Cost
+	buildingTotal[0] = 0;
+	buildingTotal[1] = 0;
+	buildingTotal[2] = 0;
+	buildingTotal[3] = 0;
 	
-	upgradeData[0] = 100000; //Clicker Upgrade Cost
-	upgradeData[1] = 1; //Clicker Upgrade Total
+	buildingCost[0] = 10;
+	buildingCost[1] = 100;
+	buildingCost[2] = 1000;
+	buildingCost[3] = 5000;
+	
+	upgradeTotal[0] = 1;
+	upgradeTotal[1] = 1;
+	upgradeTotal[2] = 1;
+	upgradeTotal[3] = 1;
+	upgradeTotal[4] = 1;
+	
+	upgradeCost[0] = 10000;
+	upgradeCost[1] = 100;
+	upgradeCost[2] = 5000;
+	upgradeCost[3] = 10000;
+	upgradeCost[4] = 75000;
+	
 	
 	
 	gfxInitDefault();
@@ -43,16 +60,7 @@ int main()
 
 
 	//Open file user.txt as "fp". If it exists, read it. If it doesn't, create a new file.
-	FILE * fp = fopen("/3ds/data/cookiecollector/user.txt", "r+");
-	
-	if(!fp) { 
-		fp = fopen("/3ds/data/cookiecollector/user.txt", "w+");
-	}
-	
-	//Write data from file to variables.
-    fread(&cookies, sizeof(u64), 1, fp);
-	fread(buildingData, sizeof(u64), 10, fp);
-	rewind(fp);
+	loadGame();
 	
 	// Main loop
 	while (aptMainLoop())
@@ -74,15 +82,15 @@ int main()
 			printf("\x1b[1;14H\x1b[47;30mCookie Collector 3DS\x1b[0m\e[K\n");
 			printf("\x1b[5;15HYou have: %lld cookies \e[K\n", cookies);
 			printf("\x1b[6;0H__________________________________________________");
-			printf("\x1b[8;2HIt costs %llu cookies to build a clicker \e[K\n", buildingData[3]);
-			printf("\x1b[9;2HIt costs %llu cookies to hire a grandma \e[K\n", buildingData[4]);
-			printf("\x1b[10;2HIt costs %llu cookies to build a bakery\e[K\n", buildingData[5]);
+			printf("\x1b[8;2HIt costs %llu cookies to build a clicker \e[K\n", buildingCost[0]);
+			printf("\x1b[9;2HIt costs %llu cookies to hire a grandma \e[K\n", buildingCost[1]);
+			printf("\x1b[10;2HIt costs %llu cookies to build a bakery\e[K\n", buildingCost[3]);
 			
 			moveCursor();
 	
 			//Add Cookies	
 			if (kDown & KEY_X){
-				cookies = cookies + buildingData[6];
+				cookies = cookies + upgradeTotal[0];
 			} 
 			
 			if (kDown & KEY_A & cursor == 1) {
@@ -117,7 +125,7 @@ int main()
 			printf("\x1b[6;0H__________________________________________________\e[K\n");
 			printf("\x1b[8;0HPress B to go back\e[K\n");
 			
-			if (cursor > 4 & (buildingData[0] <= 25)) {
+			if (cursor > 4 & (buildingTotal[0] <= 25)) {
 				cursor = 4;
 			} else if (cursor > 5) {
 				cursor = 5;
@@ -128,50 +136,50 @@ int main()
 			moveCursor();
 			
 			if (cursor == 1) {
-				printf("\x1b[10;2H\x1b[40;33m>\x1b[0m Clicker:         %llu\e[K\n", buildingData[3]);
-				printf("\x1b[11;2H  Grandma:         %llu\e[K\n", buildingData[4]);
-				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingData[5]);
-				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
-				if (buildingData[0] >= 25) {
-				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[8]);
+				printf("\x1b[10;2H\x1b[40;33m>\x1b[0m Clicker:         %llu\e[K\n", buildingCost[0]);
+				printf("\x1b[11;2H  Grandma:         %llu\e[K\n", buildingCost[1]);
+				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingCost[2]);
+				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingCost[3]);
+				if (buildingTotal[0] >= 25) {
+				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", upgradeCost[4]);
 				}
 			
 			} else if (cursor == 2) {
-				printf("\x1b[10;2H  Clicker:         %llu\e[K\n", buildingData[3]);
-				printf("\x1b[11;2H\x1b[40;33m>\x1b[0m Grandma:         %llu\e[K\n", buildingData[4]);
-				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingData[5]);
-				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
-				if (buildingData[0] >= 25) {
-				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[8]);
+				printf("\x1b[10;2H  Clicker:         %llu\e[K\n", buildingCost[0]);
+				printf("\x1b[11;2H\x1b[40;33m>\x1b[0m Grandma:         %llu\e[K\n", buildingCost[1]);
+				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingCost[2]);
+				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingCost[3]);
+				if (buildingTotal[0] >= 25) {
+				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", upgradeCost[4]);
 				}
 				
 			} else if (cursor == 3) {
-				printf("\x1b[10;2H  Clicker:         %llu\e[K\n", buildingData[3]);
-				printf("\x1b[11;2H  Grandma:         %llu\e[K\n", buildingData[4]);
-				printf("\x1b[12;2H\x1b[40;33m>\x1b[0m Bakery:          %llu\e[K\n", buildingData[5]);
-				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
+				printf("\x1b[10;2H  Clicker:         %llu\e[K\n", buildingCost[0]);
+				printf("\x1b[11;2H  Grandma:         %llu\e[K\n", buildingCost[1]);
+				printf("\x1b[12;2H\x1b[40;33m>\x1b[0m Bakery:          %llu\e[K\n", buildingCost[2]);
+				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", upgradeCost[3]);
 				
-				if (buildingData[0] >= 25) {
-				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[8]);
+				if (buildingTotal[0] >= 25) {
+				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingCost[4]);
 				}
 				
 			} else if (cursor== 4) {
-				printf("\x1b[10;2H  Clicker:         %llu\e[K\n", buildingData[3]);
-				printf("\x1b[11;2H  Grandma:         %llu\e[K\n", buildingData[4]);
-				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingData[5]);
-				printf("\x1b[14;2H\x1b[40;33m>\x1b[0m Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
+				printf("\x1b[10;2H  Clicker:         %llu\e[K\n", buildingCost[0]);
+				printf("\x1b[11;2H  Grandma:         %llu\e[K\n", buildingCost[1]);
+				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingCost[2]);
+				printf("\x1b[14;2H\x1b[40;33m>\x1b[0m Cookie Upgrade:  %llu\e[K\n", buildingCost[3]);
 				
-				if (buildingData[0] >= 25) {
-				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", buildingData[8]);
+				if (buildingTotal[0] >= 25) {
+				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", upgradeCost[4]);
 				}
 			} else if (cursor == 5) {
-				printf("\x1b[10;2H  Clicker:         %llu\e[K\n", buildingData[3]);
-				printf("\x1b[11;2H  Grandma:         %llu\e[K\n", buildingData[4]);
-				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingData[5]);
-				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingData[7]);
+				printf("\x1b[10;2H  Clicker:         %llu\e[K\n", buildingCost[0]);
+				printf("\x1b[11;2H  Grandma:         %llu\e[K\n", buildingCost[1]);
+				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingCost[2]);
+				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", buildingCost[3]);
 				
-				if (buildingData[0] >= 25) {
-				printf("\x1b[15;2H\x1b[40;33m>\x1b[0m Upgrade Clicker: %llu\e[K\n", buildingData[8]);
+				if (buildingTotal[0] >= 25) {
+				printf("\x1b[15;2H\x1b[40;33m>\x1b[0m Upgrade Clicker: %llu\e[K\n", upgradeCost[4]);
 				}
 			}
 			
@@ -183,46 +191,46 @@ int main()
 			}
 			
 					//Buy clicker	
-			if (cursor == 1 & kDown & KEY_A){
+			if (cursor == 1 & (kDown & KEY_A)){
 			
-				if(cookies >= buildingData[3]){
-					cookies-=buildingData[3];
-					buildingData[3] = buildingData[3] * 1.2;
-					buildingData[0]++;
+				if(cookies >= buildingCost[0]){
+					cookies-=buildingCost[0];
+					buildingCost[0] = buildingCost[0] * 1.2;
+					buildingTotal[0]++;
 				}
 			}
 		
 			//Buy grandma
-			if(cursor == 2 & kDown * KEY_A){
-				if(cookies >= buildingData[4]){
-					cookies-=buildingData[4];
-					buildingData[4] = buildingData[4] * 1.2;
-					buildingData[1]++;
+			if(cursor == 2 & (kDown & KEY_A)){
+				if(cookies >= buildingCost[1]){
+					cookies-=buildingCost[1];
+					buildingCost[1] = buildingCost[1] * 1.2;
+					buildingTotal[1]++;
 				}
 			}
-		
+			//Buy Bakery
 			if(kDown & KEY_A & cursor == 3){
-				if(cookies >= buildingData[5]){
-					cookies-=buildingData[5];
-					buildingData[5] = buildingData[5] * 1.2;
-					buildingData[2]++;
+				if(cookies >= buildingCost[2]){
+					cookies-=buildingCost[2];
+					buildingCost[2] = buildingCost[2] * 1.2;
+					buildingTotal[2]++;
 				} 
 			}
-			
+			//Upgrade cookie
 			if(kDown & KEY_A & cursor == 4) {
-				if(cookies >= buildingData[7]) {
-					cookies-=buildingData[7];
-					buildingData[7] = buildingData[7] * 1.2;
-					buildingData[6]++;
+				if(cookies >= upgradeCost[0]) {
+					cookies-= upgradeCost[0];
+					upgradeCost[0] = upgradeCost[0] * 1.2;
+					upgradeTotal[0]++;
 				}
 			
 			}
-			
-			if(kDown & KEY_A & cursor == 5) {
-				if(cookies >= buildingData[8]) {
-					cookies-= buildingData[8];
-					buildingData[8] = buildingData[8] * 1.2;
-					buildingData[9]++;
+			//Upgrade Clicker
+			if((kDown & KEY_A) & cursor == 5) {
+				if(cookies >= upgradeCost[1]) {
+					cookies-= upgradeCost[1];
+					upgradeCost[1] = upgradeCost[1] * 1.2;
+					upgradeTotal[1]++;
 				}
 			}
 			//----------------------------------------------------
@@ -266,16 +274,25 @@ int main()
 				saveGame();
 			} else if ((cursor == 2) & kDown & KEY_A) {
 				cookies = 0;
-				buildingData[0] = 0;
-				buildingData[1] = 0;
-				buildingData[2] = 0;
-				buildingData[3] = 10;
-				buildingData[4] = 100;
-				buildingData[5] = 1000;
-				buildingData[6] = 1;
-				buildingData[7] = 10000;
-				upgradeData[0] = 100000;
-				upgradeData[1] = 1;
+				buildingTotal[0] = 0;
+				buildingTotal[1] = 0;
+				buildingTotal[2] = 0;
+				buildingTotal[3] = 0;
+	
+				buildingCost[0] = 10;
+				buildingCost[1] = 100;
+				buildingCost[2] = 1000;
+				buildingCost[3] = 5000;
+	
+				upgradeTotal[0] = 1;
+				upgradeTotal[1] = 1;
+				upgradeTotal[2] = 1;
+				upgradeTotal[3] = 1;
+	
+				upgradeCost[0] = 100;
+				upgradeCost[1] = 5000;
+				upgradeCost[2] = 10000;
+				upgradeCost[3] = 75000;
 				saveGame();
 			}
 			
@@ -285,10 +302,10 @@ int main()
 			consoleSelect(&bottomScreen);
 		
 			//%d is a replacement for an integer
-			printf("\x1b[1;1HPress X to gain %llu cookies!\e[K\n", buildingData[6]);
-			printf("\x1b[3;1HYou have %llu clickers so far!\e[K\n", buildingData[0]);
-			printf("\x1b[4;1HYou have %llu grandmas hired so far!\e[K\n", buildingData[1]);
-			printf("\x1b[5;1HYou have %llu bakeries built so far!\e[K\n", buildingData[2]);
+			printf("\x1b[1;1HPress X to gain %llu cookies!\e[K\n", upgradeTotal[0]);
+			printf("\x1b[3;1HYou have %llu clickers so far! (x%llu)\e[K\n", buildingTotal[0], upgradeTotal[1]);
+			printf("\x1b[4;1HYou have %llu grandmas hired so far!\e[K\n", buildingTotal[1]);
+			printf("\x1b[5;1HYou have %llu bakeries built so far!\e[K\n", buildingTotal[2]);
 			printf("\x1b[8;1HAuthor: Kaisogen");
 			printf("\x1b[9;1HPress /\\ or \\/ to select");
 		
@@ -303,17 +320,11 @@ int main()
 		
 		if (frames % 60 == 0) 
 		{
-			cookies = cookies + (buildingData[0] * buildingData[9]);
-			
-			cookies = cookies + buildingData[1] * 5;
-			
-			cookies = cookies + buildingData[2] * 15;
-			
+			addCookies();
 			frames = 0;
 			
 		}
 		
-		//Yeah, this isn't working. I'll take a minute to figure this out later.
 		
 		if (longTimer == 900) {
 			FILE * fp = fopen("/3ds/data/cookiecollector/user.txt", "r+");

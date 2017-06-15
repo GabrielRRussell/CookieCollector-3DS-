@@ -9,8 +9,10 @@ void saveGame() {
 	FILE * fp = fopen("/3ds/data/cookiecollector/user.txt", "r+");
 	
 	fwrite(&cookies, sizeof(u64), 1, fp);
-	fwrite(buildingData, sizeof(u64), 8, fp);
-	fwrite(upgradeData, sizeof(u64), 4, fp);
+	fwrite(buildingTotal, sizeof(u64), 4, fp);
+	fwrite(buildingCost, sizeof(u64), 4, fp);
+	fwrite(upgradeCost, sizeof(u64), 5, fp);
+	fwrite(upgradeTotal, sizeof(u64), 5, fp);
 	fclose(fp);
 	
 }
@@ -30,4 +32,27 @@ void resetCursor(int min, int max) {
 	} else if (cursor < min) {
 		cursor = min;
 	}
+}
+
+void addCookies() {
+	cookies = cookies + (buildingTotal[0] * upgradeTotal[1]);
+	cookies = cookies + ((buildingTotal[1] * 5) * upgradeTotal[2]);
+	cookies = cookies + buildingTotal[2] * 15;
+	
+	
+}
+
+void loadGame() {
+	FILE * fp = fopen("/3ds/data/cookiecollector/user.txt", "r+");
+	
+	if(!fp) { 
+		fp = fopen("/3ds/data/cookiecollector/user.txt", "w+");
+	}
+
+    fread(&cookies, sizeof(u64), 1, fp);
+	fread(buildingTotal, sizeof(u64), 4, fp);
+	fread(buildingCost, sizeof(u64), 4, fp);
+	fread(upgradeTotal, sizeof(u64), 5, fp);
+	fread(upgradeCost, sizeof(u64), 5, fp);
+	rewind(fp);
 }
