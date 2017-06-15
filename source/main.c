@@ -84,7 +84,7 @@ int main()
 			printf("\x1b[6;0H__________________________________________________");
 			printf("\x1b[8;2HIt costs %llu cookies to build a clicker \e[K\n", buildingCost[0]);
 			printf("\x1b[9;2HIt costs %llu cookies to hire a grandma \e[K\n", buildingCost[1]);
-			printf("\x1b[10;2HIt costs %llu cookies to build a bakery\e[K\n", buildingCost[3]);
+			printf("\x1b[10;2HIt costs %llu cookies to build a bakery\e[K\n", buildingCost[2]);
 			
 			moveCursor();
 	
