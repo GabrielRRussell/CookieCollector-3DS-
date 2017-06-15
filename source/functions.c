@@ -57,11 +57,11 @@ void loadGame() {
 	rewind(fp);
 }
 
-void makeSale(u64 increment, u64 cost) {
-	if (cookies >= cost) {
-		cookies -= cost;
-		cost = cost * 1.2;
-		increment++;
-	}
-	
+void makeSale(u64* increment, u64* cost) {
+    if (cookies >= *cost) {
+        cookies -= *cost;
+        *cost *= 1.2;
+        *increment += 1;
+    }
+    
 }

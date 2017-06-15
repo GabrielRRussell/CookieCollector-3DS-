@@ -40,8 +40,8 @@ int main()
 	upgradeTotal[3] = 1;
 	upgradeTotal[4] = 1;
 	
-	upgradeCost[0] = 10000;
-	upgradeCost[1] = 100;
+	upgradeCost[0] = 1000;
+	upgradeCost[1] = 50000;
 	upgradeCost[2] = 5000;
 	upgradeCost[3] = 10000;
 	upgradeCost[4] = 75000;
@@ -179,42 +179,25 @@ int main()
 			
 					//Buy clicker	
 			if (cursor == 1 & (kDown & KEY_A)){
-			
-				if(cookies >= buildingCost[0]){
-					cookies-=buildingCost[0];
-					buildingCost[0] = buildingCost[0] * 1.2;
-					buildingTotal[0]++;
-				}
+				makeSale(&buildingTotal[0], &buildingCost[0]);
 			}
 		
 			//Buy grandma
 			if(cursor == 2 & (kDown & KEY_A)){
-				makeSale(buildingTotal[1], buildingCost[1]);
+				makeSale(&buildingTotal[1], &buildingCost[1]);
 			}
+
 			//Buy Bakery
 			if(kDown & KEY_A & cursor == 3){
-				if(cookies >= buildingCost[2]){
-					cookies-=buildingCost[2];
-					buildingCost[2] = buildingCost[2] * 1.2;
-					buildingTotal[2]++;
-				} 
+				makeSale(&buildingTotal[2], &buildingCost[2]);
 			}
 			//Upgrade cookie
 			if(kDown & KEY_A & cursor == 4) {
-				if(cookies >= upgradeCost[0]) {
-					cookies-= upgradeCost[0];
-					upgradeCost[0] = upgradeCost[0] * 1.2;
-					upgradeTotal[0]++;
-				}
-			
+				makeSale(&upgradeTotal[0], &upgradeCost[0]);			
 			}
 			//Upgrade Clicker
 			if((kDown & KEY_A) & cursor == 5) {
-				if(cookies >= upgradeCost[1]) {
-					cookies-= upgradeCost[1];
-					upgradeCost[1] = upgradeCost[1] * 1.2;
-					upgradeTotal[1]++;
-				}
+				makeSale(&upgradeTotal[1], &upgradeCost[1]);
 			}
 			//----------------------------------------------------
 			//---------------------End Of-------------------------

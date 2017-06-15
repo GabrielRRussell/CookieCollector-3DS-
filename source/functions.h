@@ -13,7 +13,7 @@ void loadGame();
 void moveCursor();
 void resetCursor(int min, int max);
 void addCookies();
-void makeSale(u64 increment, u64 cost);
+void makeSale(u64* increment, u64* cost);
 
 
 #endif
