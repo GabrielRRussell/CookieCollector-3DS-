@@ -18,5 +18,4 @@ void makeSale(u64* increment, u64* cost);
 void printStatement(char* name, u64 cost, int place);
 void resetScreen();
 
-
 #endif

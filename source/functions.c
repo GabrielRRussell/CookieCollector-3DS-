@@ -3,11 +3,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "functions.h"
+#include <sys/stat.h> 
+#include <sys/types.h> 
 
 void saveGame() {
 
 	FILE * fp = fopen("/3ds/data/cookiecollector/user.txt", "r+");
-	
+	mkdir("/3ds/data/", 0777);
+	mkdir("/3ds/data/CookieCollector/", 0777);
 	fwrite(&cookies, sizeof(u64), 1, fp);
 	fwrite(buildingTotal, sizeof(u64), 4, fp);
 	fwrite(buildingCost, sizeof(u64), 4, fp);
@@ -42,12 +45,13 @@ void addCookies() {
 }
 
 void loadGame() {
+	mkdir("/3ds/data/", 0777);
+	mkdir("/3ds/data/CookieCollector/", 0777);
 	FILE * fp = fopen("/3ds/data/cookiecollector/user.txt", "r+");
 	
 	if(!fp) { 
 		fp = fopen("/3ds/data/cookiecollector/user.txt", "w+");
 	}
-
     fread(&cookies, sizeof(u64), 1, fp);
 	fread(buildingTotal, sizeof(u64), 4, fp);
 	fread(buildingCost, sizeof(u64), 4, fp);
@@ -89,6 +93,10 @@ void resetScreen() {
 		printf("\x1b[14;0H                   \e[K\n");
 		printf("\x1b[15;0H                   \e[K\n");
 		printf("\x1b[16;0H                   \e[K\n");
+		printf("\x1b[17;0H                   \e[K\n");
+		printf("\x1b[18;0H                   \e[K\n");
+		printf("\x1b[19;0H                   \e[K\n");
+
 		
 		consoleClear();			
 	}

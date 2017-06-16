@@ -188,17 +188,17 @@ int main()
 
 			moveCursor();
 			
-			if (cursor == 1 & screen == 2) {
+			if ((cursor == 1) & (screen == 2)) {
 				printf("\x1b[12;2H\x1b[40;33m>\x1b[m Save\e[K\n");
 				printf("\x1b[13;2H  Reset\e[K\n");
-			} else if (cursor == 2 & screen == 2) {
+			} else if ((cursor == 2) & (screen == 2)) {
 				printf("\x1b[12;2H  Save\e[K\n");
 				printf("\x1b[13;2H\x1b[43;31m> Reset (THIS CANNOT BE UNDONE)\x1b[0m\e[K\n");
 			}
 			
-			if ((cursor == 1) & kDown & KEY_A) {
+			if ((cursor == 1) & (kDown & KEY_A)) {
 				saveGame();
-			} else if ((cursor == 2) & kDown & KEY_A) {
+			} else if ((cursor == 2) & (kDown & KEY_A)) {
 				cookies = 0;
 				buildingTotal[0] = 0;
 				buildingTotal[1] = 0;
@@ -234,7 +234,7 @@ int main()
 			printf("\x1b[5;1HBakeries: %llu (x%llu)\e[K\n", buildingTotal[2], upgradeTotal[3]);
 			printf("\x1b[6;1HBanks:    %llu (x%llu)\e[K\n", buildingTotal[3], upgradeTotal[4]);
 			printf("\x1b[28;1HAuthor: Kaisogen");
-			printf("\x1b[29;1HV1.6.0");
+			printf("\x1b[29;1HV1.6.5");
 			printf("\x1b[8;1HPress /\\ or \\/ to select");
 		
 		
