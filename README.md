@@ -53,3 +53,5 @@ LiquidFenrir on the homebrew discord for suffering through my mistakes and helpi
 Swiftloke and Realtime on the homebrew discord for helping me understand fopen more.
 
 Sono for explaining and helping me understand so many different concepts in C.
+
+EXTRA Thank you to Pillows2 / RyanTV for making me the icon for the game! Looks super pretty!
