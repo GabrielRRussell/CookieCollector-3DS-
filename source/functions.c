@@ -38,8 +38,7 @@ void addCookies() {
 	cookies = cookies + (buildingTotal[0] * upgradeTotal[1]);
 	cookies = cookies + ((buildingTotal[1] * 5) * upgradeTotal[2]);
 	cookies = cookies + buildingTotal[2] * 15;
-	
-	
+	cookies = cookies + buildingTotal[3] * 50;
 }
 
 void loadGame() {
@@ -64,4 +63,33 @@ void makeSale(u64* increment, u64* cost) {
         *increment += 1;
     }
     
+}
+
+void printStatement(char* name, u64 cost, int place) {
+
+	if (cursor == place) {
+		printf("\x1b[%d;2H\x1b[40;33m>\x1b[0m %s: %llu \e[K\n", place, name, cost);
+	} else {
+		printf("\x1b[%d;2H  %s: %llu \e[K\n", place, name, cost);
+	}
+
+}
+
+			
+void resetScreen() {
+	if (hidKeysDown() & KEY_B) {
+		screen = 0;
+		cursor = 0;
+		printf("\x1b[8;0H                   \e[K\n");
+		printf("\x1b[9;0H                   \e[K\n");
+		printf("\x1b[10;0H                   \e[K\n");
+		printf("\x1b[11;0H                   \e[K\n");
+		printf("\x1b[12;0H                   \e[K\n");
+		printf("\x1b[13;0H                   \e[K\n");
+		printf("\x1b[14;0H                   \e[K\n");
+		printf("\x1b[15;0H                   \e[K\n");
+		printf("\x1b[16;0H                   \e[K\n");
+		
+		consoleClear();			
+	}
 }

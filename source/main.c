@@ -6,7 +6,7 @@
 #include "functions.h"
 
 extern u64 cookies = 0;
-int screen = 0;
+extern int screen = 0;
 extern int cursor = 0;
 
 // Keep track of values
@@ -125,79 +125,48 @@ int main()
 			printf("\x1b[6;0H__________________________________________________\e[K\n");
 			printf("\x1b[8;0HPress B to go back\e[K\n");
 			
-			if (cursor > 4 & (buildingTotal[0] <= 25)) {
-				cursor = 4;
-			} else if (cursor > 5) {
-				cursor = 5;
-			} else if (cursor < 1) {
-				cursor = 1;
-			}
-			
+			resetCursor(10, 16);
 			moveCursor();
+			resetScreen();
 			
-			if (cursor == 1) {
-				printf("\x1b[10;2H\x1b[40;33m>\x1b[0m Clicker:         %llu\e[K\n", buildingCost[0]);
-				printf("\x1b[11;2H  Grandma:         %llu\e[K\n", buildingCost[1]);
-				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingCost[2]);
-				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", upgradeCost[0]);
-				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", upgradeCost[1]);
-			} else if (cursor == 2) {
-				printf("\x1b[10;2H  Clicker:         %llu\e[K\n", buildingCost[0]);
-				printf("\x1b[11;2H\x1b[40;33m>\x1b[0m Grandma:         %llu\e[K\n", buildingCost[1]);
-				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingCost[2]);
-				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", upgradeCost[0]);
-				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", upgradeCost[1]);
-				
-			} else if (cursor == 3) {
-				printf("\x1b[10;2H  Clicker:         %llu\e[K\n", buildingCost[0]);
-				printf("\x1b[11;2H  Grandma:         %llu\e[K\n", buildingCost[1]);
-				printf("\x1b[12;2H\x1b[40;33m>\x1b[0m Bakery:          %llu\e[K\n", buildingCost[2]);
-				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", upgradeCost[0]);
-				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", upgradeCost[1]);
-				
-				
-			} else if (cursor== 4) {
-				printf("\x1b[10;2H  Clicker:         %llu\e[K\n", buildingCost[0]);
-				printf("\x1b[11;2H  Grandma:         %llu\e[K\n", buildingCost[1]);
-				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingCost[2]);
-				printf("\x1b[14;2H\x1b[40;33m>\x1b[0m Cookie Upgrade:  %llu\e[K\n", upgradeCost[0]);
-				printf("\x1b[15;2H  Upgrade Clicker: %llu\e[K\n", upgradeCost[1]);
-			} else if (cursor == 5) {
-				printf("\x1b[10;2H  Clicker:         %llu\e[K\n", buildingCost[0]);
-				printf("\x1b[11;2H  Grandma:         %llu\e[K\n", buildingCost[1]);
-				printf("\x1b[12;2H  Bakery:          %llu\e[K\n", buildingCost[2]);
-				printf("\x1b[14;2H  Cookie Upgrade:  %llu\e[K\n", upgradeCost[0]);
-				printf("\x1b[15;2H\x1b[40;33m>\x1b[0m Upgrade Clicker: %llu\e[K\n", upgradeCost[1]);
-			}
+			if (screen == 1) {
+			printStatement("Clicker", buildingCost[0], 10);
+			printStatement("Grandma", buildingCost[1], 11);
+			printStatement("Bakery", buildingCost[2], 12);
+			printStatement("Bank", buildingCost[3], 13);
+			printStatement("Cookie Upgrade", upgradeCost[0], 14);
+			printStatement("Clicker Boost", upgradeCost[1], 15);
+			printStatement("Grandma's Recipe", upgradeCost[2], 16);
+			};
 			
-			
-			if (kDown & KEY_B) {
-				screen = 0;
-				cursor = 0;
-				consoleClear();
-			}
-			
-					//Buy clicker	
-			if (cursor == 1 & (kDown & KEY_A)){
+			//Buy clicker	
+			if ((cursor == 10) & (kDown & KEY_A)){
 				makeSale(&buildingTotal[0], &buildingCost[0]);
 			}
 		
 			//Buy grandma
-			if(cursor == 2 & (kDown & KEY_A)){
+			if((cursor == 11) & (kDown & KEY_A)){
 				makeSale(&buildingTotal[1], &buildingCost[1]);
 			}
 
 			//Buy Bakery
-			if(kDown & KEY_A & cursor == 3){
+			if(kDown & KEY_A & (cursor == 12)){
 				makeSale(&buildingTotal[2], &buildingCost[2]);
 			}
-			//Upgrade cookie
-			if(kDown & KEY_A & cursor == 4) {
-				makeSale(&upgradeTotal[0], &upgradeCost[0]);			
+			//Buy Bank
+			if(kDown & KEY_A & (cursor == 13)) {
+				makeSale(&buildingTotal[3], &buildingCost[3]);			
 			}
-			//Upgrade Clicker
-			if((kDown & KEY_A) & cursor == 5) {
+			//Cookie Upgrade
+			if((kDown & KEY_A) & (cursor == 14)) {
+				makeSale(&upgradeTotal[0], &upgradeCost[0]);
+			}
+			//Clicker Upgrade
+			if((kDown & KEY_A) & (cursor == 15)) {
 				makeSale(&upgradeTotal[1], &upgradeCost[1]);
+			}
+			if((kDown & KEY_A) & (cursor == 16)) {
+				makeSale(&upgradeTotal[2], &upgradeCost[2]);
 			}
 			//----------------------------------------------------
 			//---------------------End Of-------------------------
@@ -206,14 +175,7 @@ int main()
 			
 		} else if (screen == 2) {
 		
-			if (kDown & KEY_B) {
-				screen = 0;
-				cursor = 0;
-				printf("\x1b[8;H          \e[K\n");
-				printf("\x1b[11;0H        \e[K\n");
-				consoleClear();
-				
-			}
+			resetScreen();
 			consoleSelect(&topScreen);
 			printf("\x1b[1;23HConfig\e[K\n");
 			printf("\x1b[5;15HYou have: %lld cookies \e[K\n", cookies);
@@ -272,6 +234,7 @@ int main()
 			printf("\x1b[3;1HYou have %llu clickers so far! (x%llu)\e[K\n", buildingTotal[0], upgradeTotal[1]);
 			printf("\x1b[4;1HYou have %llu grandmas hired so far!\e[K\n", buildingTotal[1]);
 			printf("\x1b[5;1HYou have %llu bakeries built so far!\e[K\n", buildingTotal[2]);
+			printf("\x1b[6;1HYou have %llu banks built so far!\e[K\n", buildingTotal[3]);
 			printf("\x1b[8;1HAuthor: Kaisogen");
 			printf("\x1b[9;1HPress /\\ or \\/ to select");
 		
