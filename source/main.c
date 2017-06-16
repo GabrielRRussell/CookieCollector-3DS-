@@ -82,9 +82,7 @@ int main()
 			printf("\x1b[1;14H\x1b[47;30mCookie Collector 3DS\x1b[0m\e[K\n");
 			printf("\x1b[5;15HYou have: %lld cookies \e[K\n", cookies);
 			printf("\x1b[6;0H__________________________________________________");
-			printf("\x1b[8;2HIt costs %llu cookies to build a clicker \e[K\n", buildingCost[0]);
-			printf("\x1b[9;2HIt costs %llu cookies to hire a grandma \e[K\n", buildingCost[1]);
-			printf("\x1b[10;2HIt costs %llu cookies to build a bakery\e[K\n", buildingCost[2]);
+			printf("\x1b[8;0HGithub Repo: Kaisogen/CookieCollector-3DS-");
 			
 			moveCursor();
 	
@@ -231,12 +229,13 @@ int main()
 		
 			//%d is a replacement for an integer
 			printf("\x1b[1;1HPress X to gain %llu cookies!\e[K\n", upgradeTotal[0]);
-			printf("\x1b[3;1HYou have %llu clickers so far! (x%llu)\e[K\n", buildingTotal[0], upgradeTotal[1]);
-			printf("\x1b[4;1HYou have %llu grandmas hired so far!\e[K\n", buildingTotal[1]);
-			printf("\x1b[5;1HYou have %llu bakeries built so far!\e[K\n", buildingTotal[2]);
-			printf("\x1b[6;1HYou have %llu banks built so far!\e[K\n", buildingTotal[3]);
-			printf("\x1b[8;1HAuthor: Kaisogen");
-			printf("\x1b[9;1HPress /\\ or \\/ to select");
+			printf("\x1b[3;1HClickers: %llu (x%llu)\e[K\n", buildingTotal[0], upgradeTotal[1]);
+			printf("\x1b[4;1HGrandmas: %llu (x%llu)\e[K\n", buildingTotal[1], upgradeTotal[2]);
+			printf("\x1b[5;1HBakeries: %llu (x%llu)\e[K\n", buildingTotal[2], upgradeTotal[3]);
+			printf("\x1b[6;1HBanks:    %llu (x%llu)\e[K\n", buildingTotal[3], upgradeTotal[4]);
+			printf("\x1b[28;1HAuthor: Kaisogen");
+			printf("\x1b[29;1HV1.6.0");
+			printf("\x1b[8;1HPress /\\ or \\/ to select");
 		
 		
 		// Flush and swap frame-buffers
