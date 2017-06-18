@@ -126,7 +126,7 @@ int main()
 			printf("\x1b[6;0H__________________________________________________\e[K\n");
 			printf("\x1b[8;0HPress B to go back\e[K\n");
 			
-			resetCursor(10, 16);
+			resetCursor(10, 18);
 			moveCursor();
 			resetScreen();
 			

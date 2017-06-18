@@ -16,8 +16,8 @@ void saveGame() {
 	fwrite(&cookies, sizeof(u64), 1, fp);
 	fwrite(buildingTotal, sizeof(u64), 4, fp);
 	fwrite(buildingCost, sizeof(u64), 4, fp);
-	fwrite(upgradeCost, sizeof(u64), 5, fp);
-	fwrite(upgradeTotal, sizeof(u64), 5, fp);
+	fwrite(upgradeCost, sizeof(u64), 6, fp);
+	fwrite(upgradeTotal, sizeof(u64), 6, fp);
 	fclose(fp);
 	
 }
