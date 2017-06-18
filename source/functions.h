@@ -4,10 +4,11 @@
 extern u64 cookies;
 extern u64 buildingTotal[4];
 extern u64 buildingCost[4];
-extern u64 upgradeTotal[5];
-extern u64 upgradeCost[5];
+extern u64 upgradeTotal[6];
+extern u64 upgradeCost[6];
 extern int cursor;
 extern int screen;
+extern int version;
 
 void saveGame();
 void loadGame();

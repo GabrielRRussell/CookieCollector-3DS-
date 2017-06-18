@@ -11,6 +11,8 @@ void saveGame() {
 	FILE * fp = fopen("/3ds/data/cookiecollector/user.txt", "r+");
 	mkdir("/3ds/data/", 0777);
 	mkdir("/3ds/data/CookieCollector/", 0777);
+	
+	fwrite(&version, sizeof(int), 1, fp);
 	fwrite(&cookies, sizeof(u64), 1, fp);
 	fwrite(buildingTotal, sizeof(u64), 4, fp);
 	fwrite(buildingCost, sizeof(u64), 4, fp);
@@ -19,6 +21,9 @@ void saveGame() {
 	fclose(fp);
 	
 }
+
+
+
 
 void moveCursor() {
 
@@ -52,12 +57,24 @@ void loadGame() {
 	if(!fp) { 
 		fp = fopen("/3ds/data/cookiecollector/user.txt", "w+");
 	}
-    fread(&cookies, sizeof(u64), 1, fp);
-	fread(buildingTotal, sizeof(u64), 4, fp);
-	fread(buildingCost, sizeof(u64), 4, fp);
-	fread(upgradeCost, sizeof(u64), 5, fp);
-	fread(upgradeTotal, sizeof(u64), 5, fp);
-	rewind(fp);
+	
+	fread(&version, sizeof(int), 1, fp);
+	
+	if (version == 170) {
+		fread(&cookies, sizeof(u64), 1, fp);
+		fread(buildingTotal, sizeof(u64), 4, fp);
+		fread(buildingCost, sizeof(u64), 4, fp);
+		fread(upgradeCost, sizeof(u64), 6, fp);
+		fread(upgradeTotal, sizeof(u64), 6, fp);
+		rewind(fp);
+	} else {
+		fread(&cookies, sizeof(u64), 1, fp);
+		fread(buildingTotal, sizeof(u64), 4, fp);
+		fread(buildingCost, sizeof(u64), 4, fp);
+		fread(upgradeCost, sizeof(u64), 5, fp);
+		fread(upgradeTotal, sizeof(u64), 5, fp);
+		
+	}
 }
 
 void makeSale(u64* increment, u64* cost) {
@@ -70,13 +87,12 @@ void makeSale(u64* increment, u64* cost) {
 }
 
 void printStatement(char* name, u64 cost, int place) {
-
+		
 	if (cursor == place) {
-		printf("\x1b[%d;2H\x1b[40;33m>\x1b[0m %s: %llu \e[K\n", place, name, cost);
+		printf("\x1b[%d;2H\x1b[40;33m> \x1b[0m%s: %llu\e[K\n", place, name, cost);
 	} else {
-		printf("\x1b[%d;2H  %s: %llu \e[K\n", place, name, cost);
+		printf("\x1b[%d;2H  %s: %llu\e[K\n", place, name, cost);
 	}
-
 }
 
 			

@@ -8,13 +8,14 @@
 extern u64 cookies = 0;
 extern int screen = 0;
 extern int cursor = 0;
+extern int version = 170;
 
 // Keep track of values
 
 extern u64 buildingTotal[4] = {0};
 extern u64 buildingCost[4] = {0};
-extern u64 upgradeTotal[5] = {0};
-extern u64 upgradeCost[5] = {0};
+extern u64 upgradeTotal[6] = {0};
+extern u64 upgradeCost[6] = {0};
 
 
 //Framerate Check
@@ -23,7 +24,7 @@ int longTimer = 0;
 
 int main()
 {
-
+	
 	buildingTotal[0] = 0;
 	buildingTotal[1] = 0;
 	buildingTotal[2] = 0;
@@ -39,12 +40,14 @@ int main()
 	upgradeTotal[2] = 1;
 	upgradeTotal[3] = 1;
 	upgradeTotal[4] = 1;
+	upgradeTotal[5] = 1;
 	
-	upgradeCost[0] = 1000;
+	upgradeCost[0] = 10000;
 	upgradeCost[1] = 50000;
-	upgradeCost[2] = 5000;
-	upgradeCost[3] = 10000;
+	upgradeCost[2] = 25000;
+	upgradeCost[3] = 50000;
 	upgradeCost[4] = 75000;
+	upgradeCost[5] = 100000;
 	
 	
 	
@@ -135,6 +138,8 @@ int main()
 			printStatement("Cookie Upgrade", upgradeCost[0], 14);
 			printStatement("Clicker Boost", upgradeCost[1], 15);
 			printStatement("Grandma's Recipe", upgradeCost[2], 16);
+			printStatement("Motivation Boost", upgradeCost[3], 17);
+			printStatement("Anti-Inflation Cookies", upgradeCost[4], 18);
 			};
 			
 			//Buy clicker	
@@ -163,8 +168,17 @@ int main()
 			if((kDown & KEY_A) & (cursor == 15)) {
 				makeSale(&upgradeTotal[1], &upgradeCost[1]);
 			}
+			//Grandma Upgrade
 			if((kDown & KEY_A) & (cursor == 16)) {
 				makeSale(&upgradeTotal[2], &upgradeCost[2]);
+			} 
+			//Bakery Upgrade
+			if((kDown & KEY_A) & (cursor == 17)) {
+				makeSale(&upgradeTotal[3], &upgradeCost[3]);
+			}
+			//Bank Upgrade
+			if((kDown & KEY_A) & (cursor == 18)) {
+				makeSale(&upgradeTotal[4], &upgradeCost[4]);
 			}
 			//----------------------------------------------------
 			//---------------------End Of-------------------------
@@ -220,10 +234,16 @@ int main()
 				upgradeCost[2] = 10000;
 				upgradeCost[3] = 75000;
 				saveGame();
+
+				
+			} else if ((cursor == 3) & (kDown & KEY_A)) {
+			
+				
+			
 			}
 			
 			
-		}
+		} 
 		
 			consoleSelect(&bottomScreen);
 		
@@ -234,7 +254,7 @@ int main()
 			printf("\x1b[5;1HBakeries: %llu (x%llu)\e[K\n", buildingTotal[2], upgradeTotal[3]);
 			printf("\x1b[6;1HBanks:    %llu (x%llu)\e[K\n", buildingTotal[3], upgradeTotal[4]);
 			printf("\x1b[28;1HAuthor: Kaisogen");
-			printf("\x1b[29;1HV1.6.5");
+			printf("\x1b[29;1Hv1.7.0");
 			printf("\x1b[8;1HPress /\\ or \\/ to select");
 		
 		
@@ -246,23 +266,23 @@ int main()
 		frames++;
 		longTimer++;
 		
-		if (frames % 60 == 0) 
+		if (frames % 62 == 0) 
 		{
 			addCookies();
-			frames = 0;
 			
 		}
 		
 		
-		if (longTimer == 900) {
+		if ((longTimer == 907) & (version == 170)) {
 			FILE * fp = fopen("/3ds/data/cookiecollector/user.txt", "r+");
 		
 			saveGame();
 			consoleClear();
 			longTimer = 0;
 		
-		} else if (longTimer >= 840) {
+		} else if (longTimer >= 840 & (version == 170)) {
 			printf("\x1b[12;1H\x1b[43;31mAutosaving, don't quit.\x1b[0m\e[K\n");
+		} else {
 		}
 		
 	}
