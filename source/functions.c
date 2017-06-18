@@ -67,13 +67,6 @@ void loadGame() {
 		fread(upgradeCost, sizeof(u64), 6, fp);
 		fread(upgradeTotal, sizeof(u64), 6, fp);
 		rewind(fp);
-	} else {
-		fread(&cookies, sizeof(u64), 1, fp);
-		fread(buildingTotal, sizeof(u64), 4, fp);
-		fread(buildingCost, sizeof(u64), 4, fp);
-		fread(upgradeCost, sizeof(u64), 5, fp);
-		fread(upgradeTotal, sizeof(u64), 5, fp);
-		
 	}
 }
 
