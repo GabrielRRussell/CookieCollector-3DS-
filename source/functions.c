@@ -31,6 +31,10 @@ void moveCursor() {
 		cursor++;
 	} else if (hidKeysDown() & KEY_UP) {
 		cursor--;
+	} else if (hidKeysDown() & KEY_LEFT) {
+		cursor = cursor - 3;
+	} else if (hidKeysDown() & KEY_RIGHT) {
+		cursor = cursor + 3;
 	}
 }
 
@@ -67,7 +71,16 @@ void loadGame() {
 		fread(upgradeCost, sizeof(u64), 6, fp);
 		fread(upgradeTotal, sizeof(u64), 6, fp);
 		rewind(fp);
+	} else {
+		fread(&cookies, sizeof(u64), 1, fp);
+		fread(buildingTotal, sizeof(u64), 4, fp);
+		fread(buildingCost, sizeof(u64), 4, fp);
+		fread(upgradeCost, sizeof(u64), 6, fp);
+		fread(upgradeTotal, sizeof(u64), 6, fp);
+		rewind(fp);
 	}
+	
+	version = 170;
 }
 
 void makeSale(u64* increment, u64* cost) {

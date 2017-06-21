@@ -111,9 +111,15 @@ int main()
 			if (cursor == 1 & screen == 0) {
 				printf("\x1b[12;2H\x1b[40;33m>\x1b[0m Shop\e[K\n");
 				printf("\x1b[13;2H  Options\e[K\n");
+				printf("\x1b[14;2H  Quit\e[K\n");
 			} else if (cursor == 2 & screen == 0) {
 				printf("\x1b[12;2H  Shop\e[K\n");
 				printf("\x1b[13;2H\x1b[40;33m>\x1b[0m Options\e[K\n");
+				printf("\x1b[14;2H  Quit\e[K\n");
+			} else if (cursor == 3 & screen == 0) {
+				printf("\x1b[12;2H  Shop\e[K\n");
+				printf("\x1b[13;2H  Options\e[K\n");
+				printf("\x1b[14;2H\x1b[40;33m>\x1b[0m Quit\e[K\n");
 			}
 			
 			
