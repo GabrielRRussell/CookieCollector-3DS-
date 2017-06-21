@@ -152,7 +152,7 @@ int main()
 			printStatement("Grandma's Recipe", upgradeCost[2], 16);
 			printStatement("Motivation Boost", upgradeCost[3], 17);
 			printStatement("Anti-Inflation Cookies", upgradeCost[4], 18);
-			};
+			}
 			
 			//Buy clicker	
 			if ((cursor == 10) & (kDown & KEY_A)){
@@ -257,7 +257,7 @@ int main()
 			} else if ((cursor == 3) & (kDown & KEY_A)) {
 			
 				saveGame();
-				downloadToFile("https://github.com/kaisogen/cookiecollector-3ds-/CookieCollector3DS.3dsx", "/3ds/CookieCollector3DS/CookieCollector3DS/");
+				downloadToFile("https://github.com/Kaisogen/CookieCollector-3DS-/blob/master/CookieCollector3DS.3dsx?raw=true", "/3ds/CookieCollector3DS/CookieCollector3DS/");
 				break;
 			
 			}
