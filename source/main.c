@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "functions.h"
+#include "download.h"
 
 extern u64 cookies = 0;
 extern int screen = 0;
@@ -24,6 +25,8 @@ int longTimer = 0;
 
 int main()
 {
+	
+	httpcInit(0);
 	
 	buildingTotal[0] = 0;
 	buildingTotal[1] = 0;
@@ -198,16 +201,22 @@ int main()
 			}
 			
 
-			resetCursor(1, 2);
+			resetCursor(1, 3);
 
 			moveCursor();
 			
 			if ((cursor == 1) & (screen == 2)) {
 				printf("\x1b[12;2H\x1b[40;33m>\x1b[m Save\e[K\n");
 				printf("\x1b[13;2H  Reset\e[K\n");
+				printf("\x1b[14;2H  Update\e[K\n");
 			} else if ((cursor == 2) & (screen == 2)) {
 				printf("\x1b[12;2H  Save\e[K\n");
 				printf("\x1b[13;2H\x1b[43;31m> Reset (THIS CANNOT BE UNDONE)\x1b[0m\e[K\n");
+				printf("\x1b[14;2H  Update\e[K\n");
+			} else if ((cursor == 3) & (screen == 2)) {
+				printf("\x1b[12;2H  Save\e[K\n");
+				printf("\x1b[13;2H  Reset\e[K\n");
+				printf("\x1b[14;2H\x1b[43;31m> Update (may break save)\x1b[0m\e[K\n");
 			}
 			
 			if ((cursor == 1) & (kDown & KEY_A)) {
@@ -238,7 +247,9 @@ int main()
 				
 			} else if ((cursor == 3) & (kDown & KEY_A)) {
 			
-				
+				saveGame();
+				downloadToFile("https://github.com/kaisogen/cookiecollector-3ds-/CookieCollector3DS.3dsx", "/3ds/CookieCollector3DS/CookieCollector3DS/");
+				break;
 			
 			}
 			
