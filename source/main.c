@@ -105,6 +105,9 @@ int main()
 				screen = 2;
 				cursor = 0;
 				consoleClear();
+			} else if (kDown & KEY_A & (cursor == 3)) {
+				saveGame();
+				break;
 			}
 			
 			
@@ -123,7 +126,7 @@ int main()
 			}
 			
 			
-			resetCursor(1, 2);
+			resetCursor(1, 3);
 			
 		
 		} else if (screen == 1) { //Select Shop
