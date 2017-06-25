@@ -133,6 +133,6 @@ int downloadToFile(const char * url, const char * filepath)
 	if (ret != 0) {
 		return ret;
 	}
-	
+	printf("\x1b[20;15HDownload Complete");
 	return 0;
 }

@@ -123,3 +123,12 @@ void resetScreen() {
 		consoleClear();			
 	}
 }
+
+void switchScreen(int screenOut, int place) {
+	
+	if ((hidKeysDown() & KEY_A) & (cursor == place) {
+		screen = screenOut;
+		consoleClear();
+	}
+	
+}

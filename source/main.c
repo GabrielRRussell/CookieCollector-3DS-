@@ -97,15 +97,10 @@ int main()
 				cookies = cookies + upgradeTotal[0];
 			} 
 			
-			if (kDown & KEY_A & cursor == 1) {
-				screen = 1;
-				cursor = 0;
-				consoleClear();
-			} else if (kDown & KEY_A & (cursor == 2)) {
-				screen = 2;
-				cursor = 0;
-				consoleClear();
-			} else if (kDown & KEY_A & (cursor == 3)) {
+			switchScreen(1, 1);
+			switchScreen(2, 2);
+			
+			if (kDown & KEY_A & (cursor == 3)) {
 				saveGame();
 				break;
 			}
@@ -257,7 +252,8 @@ int main()
 			} else if ((cursor == 3) & (kDown & KEY_A)) {
 			
 				saveGame();
-				downloadToFile("https://github.com/Kaisogen/CookieCollector-3DS-/blob/master/CookieCollector3DS.3dsx?raw=true", "/3ds/CookieCollector3DS/CookieCollector3DS/");
+				consoleSelect(&bottomScreen);
+				downloadToFile("https://github.com/Kaisogen/CookieCollector-3DS-/blob/master/CookieCollector3DS.3dsx?raw=true", "/3ds/CookieCollector3DS/CookieCollector3DS.3dsx/");
 				break;
 			
 			}
