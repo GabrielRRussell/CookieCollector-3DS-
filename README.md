@@ -1,5 +1,7 @@
 # CookieCollector-3DS-
-A short Cookie Clicker-like app for the 3DS Family homebrew. Built using devkitPro in C.
+A short Cookie Clicker-like app for the 3DS Family homebrew. Built using devkitPro in C. 
+Link: github.com/GabrielRRussell/CookieCollector-3DS-/
+This application was created when I was first learning how to program using the language C.
 
 # Screenshots
 
